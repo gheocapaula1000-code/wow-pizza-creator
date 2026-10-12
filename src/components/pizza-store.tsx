@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight, Minus, Plus, ShoppingBag, Trash2, Pizza, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,11 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
  const [open, setOpen] = useState(false);
  const [menu, setMenu] = useState(false);
  const [notice, setNotice] = useState('');
+ useEffect(() => {
+  if (!notice) return;
+  const timer = window.setTimeout(() => setNotice(''), 5000);
+  return () => window.clearTimeout(timer);
+ }, [notice,bag]);
  const count = Object.values(bag).reduce((a,b) => a+b,0);
  const add = (slug: string, quantity = 1) => {
   setBag(previous => ({ ...previous, [slug]: Math.min(20, (previous[slug] ?? 0) + quantity) }));
@@ -38,7 +43,7 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
   {notice && <div className="bag-notice" key={`${notice}-${count}`}><Pizza size={18}/><span>{notice}</span><Button variant="ghost" onClick={() => {setOpen(true);setNotice('');}}>Vedi borsa <ArrowRight/></Button><Button variant="ghost" size="icon" aria-label="Chiudi notifica" onClick={() => setNotice('')}>×</Button></div>}
   <Dialog open={menu} onOpenChange={setMenu}><DialogContent><DialogTitle>Strano Ma Vero!</DialogTitle><DialogDescription>La pizzeria, a casa tua.</DialogDescription><nav className="mobile-nav"><Link to="/pizze" onClick={() => setMenu(false)}>Le nostre pizze <ArrowRight/></Link><Link to="/" hash="il-finale" onClick={() => setMenu(false)}>Dal 90 al 100 <ArrowRight/></Link><Link to="/" hash="film" onClick={() => setMenu(false)}>Guarda il film <ArrowRight/></Link></nav></DialogContent></Dialog>
   <Dialog open={open} onOpenChange={setOpen}><DialogContent className="bag-dialog"><DialogTitle>La tua serata pizza <span className="text-primary">({count})</span></DialogTitle><DialogDescription>Ogni articolo comprende una base e i condimenti preconfezionati della ricetta.</DialogDescription>
-   {count === 0 ? <div className="bag-empty"><ShoppingBag/><h3>La serata è ancora tutta da scrivere.</h3><Button asChild onClick={() => setOpen(false)}><Link to="/pizze">Scegli le tue pizze <ArrowRight/></Link></Button></div> : <><div className="bag-lines">{pizzas.filter(p => (bag[p.slug] ?? 0)>0).map(p => <div className="bag-line" key={p.slug}><img src={p.image} alt={p.name} width={80} height={80}/><div><Link to="/pizza/$slug" params={{slug:p.slug}} onClick={() => setOpen(false)}>{p.name}</Link><small>Base + condimenti {p.name}</small><div className="quantity"><Button variant="ghost" size="icon" aria-label={`Riduci ${p.name}`} onClick={() => change(p.slug,-1)}><Minus/></Button><output>{bag[p.slug]}</output><Button variant="ghost" size="icon" disabled={(bag[p.slug] ?? 0)>=20} aria-label={`Aumenta ${p.name}`} onClick={() => change(p.slug,1)}><Plus/></Button></div></div><div className="line-price"><strong>{euro(p.price*(bag[p.slug] ?? 0))}</strong><Button variant="ghost" size="icon" aria-label={`Rimuovi ${p.name}`} onClick={() => setBag(previous => ({...previous,[p.slug]:0}))}><Trash2/></Button></div></div>)}</div><div className="bag-total"><span>Totale dimostrativo</span><strong>{euro(total)}</strong></div><p className="demo-note">Questa borsa è solo una dimostrazione: non invia ordini e non accetta pagamenti.</p><Button onClick={() => setOpen(false)}>Continua a scegliere <ArrowRight/></Button></>}
+   {count === 0 ? <div className="bag-empty"><ShoppingBag/><h3>La serata è ancora tutta da scrivere.</h3><Button asChild onClick={() => setOpen(false)}><Link to="/pizze">Scegli le tue pizze <ArrowRight/></Link></Button></div> : <><div className="bag-lines">{pizzas.filter(p => (bag[p.slug] ?? 0)>0).map(p => <div className="bag-line" key={p.slug}><img src={p.image} alt={p.name} width={80} height={80}/><div><Link to="/pizza/$slug" params={{slug:p.slug}} onClick={() => setOpen(false)}>{p.name}</Link><small>Base + condimenti {p.name}</small><div className="quantity"><Button variant="ghost" size="icon" aria-label={`Riduci ${p.name}`} onClick={() => change(p.slug,-1)}><Minus/></Button><output aria-live="polite">{bag[p.slug]}</output><Button variant="ghost" size="icon" disabled={(bag[p.slug] ?? 0)>=20} aria-label={`Aumenta ${p.name}`} onClick={() => change(p.slug,1)}><Plus/></Button></div></div><div className="line-price"><strong>{euro(p.price*(bag[p.slug] ?? 0))}</strong><Button variant="ghost" size="icon" aria-label={`Rimuovi ${p.name}`} onClick={() => setBag(previous => ({...previous,[p.slug]:0}))}><Trash2/></Button></div></div>)}</div><div className="bag-total" aria-live="polite"><span>Totale dimostrativo</span><strong>{euro(total)}</strong></div><p className="demo-note">Questa borsa è solo una dimostrazione: non invia ordini e non accetta pagamenti.</p><Button onClick={() => setOpen(false)}>Continua a scegliere <ArrowRight/></Button></>}
   </DialogContent></Dialog>
  </StoreContext.Provider>;
 }
