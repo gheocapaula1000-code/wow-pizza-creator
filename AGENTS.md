@@ -12,3 +12,5 @@
 - Keep the pizza concept frontend-only with in-memory selections; the demonstration must not create orders or connect commerce services.
 - Define visual roles in src/styles.css and use the shared UI controls so the concept remains consistently themed and accessible.
 - Prebundle React and the used Radix entry points together in Vite optimizeDeps; this prevents late dependency discovery from mixing React hook dispatchers in an open preview.
+
+- Keep generated video pointers in project assets and render decorative footage through PizzaFilm with a poster, playback control, and reduced-motion/data-saving fallback; motion must never block the pizza selection flow.

@@ -78,9 +78,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Novanta — Pizza kit" },
-      { name: "description", content: "Novanta, il concept pizza kit da completare a casa." },
-      { property: "og:title", content: "Novanta — Pizza kit" },
+      { title: "Strano Ma Vero! — La pizzeria a casa tua" },
+      { name: "description", content: "Strano Ma Vero! Base pizza cotta al 90% e ingredienti scelti da te, da completare a casa." },
+      { property: "og:title", content: "Strano Ma Vero! — La pizzeria a casa tua" },
       { property: "og:description", content: "La base è nostra, il finale è tuo." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
