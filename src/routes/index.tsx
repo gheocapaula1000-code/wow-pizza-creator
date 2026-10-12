@@ -1,17 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, ArrowRight, Check, Flame, PackageOpen, Pizza, ShoppingBag, Plus, Leaf } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Check, Flame, PackageOpen, Pizza, ShoppingBag, Plus, Leaf, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import heroImage from '@/assets/pizza-editorial.jpg';
-import kitImage from '@/assets/pizza-kit.jpg';
+import ingredientsImage from '@/assets/pizza-kit.jpg';
+import { PizzaFilm } from '@/components/pizza-film';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
-  { title: 'Novanta — La tua pizza, il tuo finale' },
-  { name: 'description', content: 'Una base pizza cotta al 90%, ingredienti separati e tutta la libertà di creare la tua pizza a casa. Concept dimostrativo Novanta.' },
-  { property: 'og:title', content: 'Novanta — La tua pizza, il tuo finale' },
-  { property: 'og:description', content: 'Scopri il concept pizza kit Novanta: scegli la ricetta, aggiungi i tuoi ingredienti e completa la pizza a casa.' },
+  { title: 'Strano Ma Vero! — La tua pizza, il tuo finale' },
+  { name: 'description', content: 'Una base pizza cotta al 90%, ingredienti separati e tutta la libertà di creare la tua pizza a casa. Concept dimostrativo Strano Ma Vero!' },
+  { property: 'og:title', content: 'Strano Ma Vero! — La tua pizza, il tuo finale' },
+  { property: 'og:description', content: 'Scopri il concept Strano Ma Vero!: scegli la ricetta, aggiungi i tuoi ingredienti e completa la pizza a casa.' },
   { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary_large_image' },
  ] }), component: Index,
 });
@@ -28,7 +29,7 @@ function Index() {
  const [selected,setSelected] = useState<string[]>(recipes['Diavola'] ?? []);
  const [box,setBox] = useState<string[] | null>(null);
  const [open,setOpen] = useState(false);
- const [preview,setPreview] = useState<'kit' | 'pizza'>('kit');
+ const [preview,setPreview] = useState<'ingredients' | 'pizza'>('ingredients');
  useEffect(() => {
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
    if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
@@ -40,21 +41,24 @@ function Index() {
  return <>
   <div className="announcement">IL 90% LO FACCIAMO NOI. IL TOCCO FINALE È TUO.</div>
   <header className="site-header">
-   <a className="wordmark" href="#" aria-label="Novanta, home">novanta<span>°</span></a>
-   <nav aria-label="Navigazione principale"><a href="#crea">Le nostre pizze</a><a href="#come-funziona">Il metodo Novanta</a><a href="#crea">Crea la tua pizza</a></nav>
-   <Button variant="ghost" size="icon" aria-label="Apri il tuo kit" onClick={() => setOpen(true)} className="relative h-11 w-11"><ShoppingBag/>{box && <span className="absolute right-0 top-0 text-xs text-primary">1</span>}</Button>
+   <a className="wordmark" href="#" aria-label="Strano Ma Vero!, home">STRANO<span>MA VERO!</span></a>
+   <nav aria-label="Navigazione principale"><a href="#crea">Le nostre pizze</a><a href="#come-funziona">Come funziona</a><a href="#crea">Crea la tua pizza</a></nav>
+   <Button variant="ghost" size="icon" aria-label="Apri la tua combinazione" onClick={() => setOpen(true)} className="relative h-11 w-11"><ShoppingBag/>{box && <span className="absolute right-0 top-0 text-xs text-primary">1</span>}</Button>
   </header>
   <main>
    <section className="hero" aria-labelledby="hero-title">
     <img className="hero-photo" src={heroImage} alt="Pizza diavola con mozzarella, salame piccante e basilico, esempio del risultato finale" width={1536} height={1024}/>
-    <div className="hero-copy">
+    <PizzaFilm/>
+     <div className="hero-copy">
      <div className="eyebrow">Nata in pizzeria. Finita da te.</div>
-     <h1 id="hero-title">Novanta.<br/>La tua pizza,<br/><em>il tuo finale.</em></h1>
+     <h1 id="hero-title"><span>STRANO.</span><span>MA <em>VERO!</em></span></h1>
+      <div className="hero-tagline">La pizzeria. A casa tua.</div>
      <p>La base è cotta al 90%. Gli ingredienti li scegli tu. L’ultimo tocco? A casa tua, come piace a te.</p>
-     <div className="hero-actions"><Button asChild size="lg"><a href="#crea">Crea la tua pizza <ArrowUpRight/></a></Button><Button variant="link" asChild><a href="#come-funziona">Scopri il kit <ArrowRight/></a></Button></div>
+     <div className="hero-actions"><Button asChild size="lg"><a href="#crea">Crea la tua pizza <ArrowUpRight/></a></Button><Button variant="link" asChild><a href="#come-funziona">Scopri la base <ArrowRight/></a></Button></div>
      <div className="hero-footnote"><Leaf size={14}/> Una base. Ingredienti separati. Infinite possibilità.</div>
     </div>
-    <div className="round-seal"><span>COTTA AL</span><strong>90%</strong><span>100% TUA</span></div>
+    <a href="#crea" className="hero-scroll" aria-label="Scopri e crea la tua pizza"><ArrowRight/> SCOPRI IL TUO FINALE</a>
+     <div className="round-seal"><span>COTTA AL</span><strong>90%</strong><span>100% TUA</span></div>
    </section>
    <div className="promise-bar">
     <div className="promise"><Pizza/><div><strong>La base, quella vera</strong><span>Formato pizza standard</span></div></div>
@@ -67,19 +71,21 @@ function Index() {
     <div className="recipe-tabs" aria-label="Scegli la ricetta">{Object.entries(recipes).map(([name,items]) => <Button key={name} variant={recipe === name ? 'default' : 'outline'} onClick={() => { setRecipe(name); setSelected(items); }} aria-pressed={recipe === name}>{name}</Button>)}</div>
     <div className="builder">
      <div className="preview-stage">
-      <div className="preview-switch" aria-label="Visualizza kit o risultato"><Button variant={preview === 'kit' ? 'default' : 'secondary'} aria-pressed={preview === 'kit'} onClick={() => setPreview('kit')}>Il tuo kit <PackageOpen/></Button><Button variant={preview === 'pizza' ? 'default' : 'secondary'} aria-pressed={preview === 'pizza'} onClick={() => setPreview('pizza')}>Il gran finale <Pizza/></Button></div>
-      <div className="preview-images"><img className={`kit-photo ${preview === 'kit' ? 'image-active' : ''}`} src={kitImage} alt="Esempio di kit: base pizza precotta con ingredienti in ciotole separate" width={1024} height={1024} loading="lazy"/><img className={`finished-photo ${preview === 'pizza' ? 'image-active' : ''}`} src={heroImage} alt="Esempio del risultato finale: pizza diavola cotta e condita" width={1536} height={1024} loading="lazy"/></div>
-      <span className="preview-caption">{preview === 'kit' ? 'La base è pronta. La storia la scrivi tu.' : 'Esempio di risultato · Diavola'}</span>
+      <div className="preview-switch" aria-label="Visualizza ingredienti o risultato"><Button variant={preview === 'ingredients' ? 'default' : 'secondary'} aria-pressed={preview === 'ingredients'} onClick={() => setPreview('ingredients')}>Base + ingredienti <PackageOpen/></Button><Button variant={preview === 'pizza' ? 'default' : 'secondary'} aria-pressed={preview === 'pizza'} onClick={() => setPreview('pizza')}>Il gran finale <Pizza/></Button></div>
+      <div className="preview-images"><img className={`base-photo ${preview === 'ingredients' ? 'image-active' : ''}`} src={ingredientsImage} alt="Base e ingredienti: base pizza precotta con ingredienti in ciotole separate" width={1024} height={1024} loading="lazy"/><img className={`finished-photo ${preview === 'pizza' ? 'image-active' : ''}`} src={heroImage} alt="Esempio del risultato finale: pizza diavola cotta e condita" width={1536} height={1024} loading="lazy"/></div>
+      <div className="chosen-flavours" aria-label="Ingredienti scelti">{selected.map(item => <span key={item}>{item}</span>)}</div>
+       <span className="preview-caption">{preview === 'ingredients' ? 'La base è pronta. La storia la scrivi tu.' : 'Esempio di risultato · Diavola'}</span>
      </div>
-     <div><div className="eyebrow text-primary">La tua pizza kit</div><h3 className="mt-3">{recipe}</h3><p className="builder-description">La nostra base cotta al 90%, in formato standard.<br/>Aggiungi gli ingredienti che ami: arrivano tutti separati.</p>
+     <div><div className="eyebrow text-primary">La tua pizza</div><h3 className="mt-3 recipe-title" key={recipe}>{recipe}<Sparkles aria-hidden="true"/></h3><p className="builder-description">La nostra base cotta al 90%, in formato standard.<br/>Aggiungi gli ingredienti che ami: arrivano tutti separati.</p>
       <div className="ingredient-grid">{ingredients.map(item => <Button className="ingredient" variant="outline" key={item} data-selected={selected.includes(item)} aria-pressed={selected.includes(item)} onClick={() => toggle(item)}>{item}{selected.includes(item) ? <Check/> : <Plus/>}</Button>)}</div>
-      <div className="selection-footer"><div aria-live="polite"><small>Il tuo kit</small><strong>{selected.length} ingredienti</strong></div><Button size="lg" onClick={() => {setBox([...selected]); setOpen(true);}}>Componi il kit <ArrowRight/></Button></div>
+      <div className="selection-footer"><div aria-live="polite"><small>La tua combinazione</small><strong>{selected.length} ingredienti</strong></div><Button size="lg" onClick={() => {setBox([...selected]); setOpen(true);}}>Questa è la mia pizza <ArrowRight/></Button></div>
      </div>
     </div>
    </section>
-   <section className="story" id="come-funziona" data-reveal><div><div className="eyebrow">Il metodo Novanta</div><h2 className="mt-5">Noi mettiamo la base.<br/>Tu ci metti la firma.</h2><div className="ninety-art" aria-hidden="true">90<span>%</span><small>IL RESTO È LA TUA CREATIVITÀ.</small></div></div><div className="steps">{[['Scegli la tua combinazione','Un grande classico o una ricetta tutta tua.'],['Ogni ingrediente al suo posto','La base precotta e gli ingredienti separati nel tuo kit.'],['Condisci. Inforna. Goditela.','Completa la cottura a casa e porta in tavola la tua pizza.']].map(([title,description],i) => <div className="step" key={title}><b>0{i+1}</b><div><h3>{title}</h3><p>{description}</p></div></div>)}</div></section>
+   <section className="finale-band" data-reveal><span>QUASI PRONTA.</span><span>COMPLETAMENTE <em>TUA.</em></span><a href="#crea">Il tuo gusto non segue le regole. <ArrowUpRight/></a></section>
+    <section className="story" id="come-funziona" data-reveal><div><div className="eyebrow">Il metodo Strano Ma Vero!</div><h2 className="mt-5">Noi mettiamo la base.<br/>Tu ci metti la firma.</h2><div className="ninety-art" aria-hidden="true">90<span>%</span><small>IL RESTO È LA TUA CREATIVITÀ.</small></div></div><div className="steps">{[['Scegli la tua combinazione','Un grande classico o una ricetta tutta tua.'],['Ogni ingrediente al suo posto','La base precotta e gli ingredienti separati nella tua confezione.'],['Condisci. Inforna. Goditela.','Completa la cottura a casa e porta in tavola la tua pizza.']].map(([title,description],i) => <div className="step" key={title}><b>0{i+1}</b><div><h3>{title}</h3><p>{description}</p></div></div>)}</div></section>
   </main>
-  <footer><a href="#" className="wordmark">novanta°</a><span>Il 90% è nostro. Tutto il gusto è tuo.</span><span>Concept dimostrativo · Nessuna vendita attiva</span></footer>
-  <Dialog open={open} onOpenChange={setOpen}><DialogContent><DialogTitle>Il tuo kit Novanta</DialogTitle><DialogDescription>{box ? 'Base pizza cotta al 90% e ingredienti separati.' : 'Il tuo kit è ancora da comporre.'}</DialogDescription>{box ? <><ul className="space-y-3 py-3"><li className="flex items-center gap-3"><Pizza size={18}/> Base pizza standard</li>{box.map(item => <li className="flex items-center gap-3" key={item}><Check size={16} className="text-primary"/>{item}</li>)}</ul><p className="border-t pt-4 text-sm text-muted-foreground">Questa è una dimostrazione: nessun ordine viene inviato e non sono previsti pagamenti.</p></> : <p className="py-4 text-sm">Scegli una ricetta e gli ingredienti per creare la tua combinazione.</p>}<Button onClick={() => setOpen(false)}>Continua a creare <ArrowRight/></Button></DialogContent></Dialog>
+  <footer><a href="#" className="wordmark">STRANO<span>MA VERO!</span></a><span>Il 90% è nostro. Tutto il gusto è tuo.</span><span>Concept dimostrativo · Nessuna vendita attiva</span></footer>
+  <Dialog open={open} onOpenChange={setOpen}><DialogContent><DialogTitle>La tua combinazione Strano Ma Vero!</DialogTitle><DialogDescription>{box ? 'Base pizza cotta al 90% e ingredienti separati.' : 'La tua combinazione è ancora da comporre.'}</DialogDescription>{box ? <><ul className="space-y-3 py-3"><li className="flex items-center gap-3"><Pizza size={18}/> Base pizza standard</li>{box.map(item => <li className="flex items-center gap-3" key={item}><Check size={16} className="text-primary"/>{item}</li>)}</ul><p className="border-t pt-4 text-sm text-muted-foreground">Questa è una dimostrazione: nessun ordine viene inviato e non sono previsti pagamenti.</p></> : <p className="py-4 text-sm">Scegli una ricetta e gli ingredienti per creare la tua combinazione.</p>}<Button onClick={() => setOpen(false)}>Continua a creare <ArrowRight/></Button></DialogContent></Dialog>
  </>;
 }
