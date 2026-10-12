@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { PizzaCatalog } from '@/components/pizza-catalog';
+export const Route = createFileRoute('/pizze')({
+ head: () => ({meta:[{title:'Le pizze — Margherita, Diavola e classici | Strano Ma Vero!'},{name:'description',content:'Scopri quattro pizze classiche con la stessa base cotta al 90% e condimenti preconfezionati dedicati: Margherita, Diavola, Capricciosa e Quattro stagioni.'},{property:'og:title',content:'Le nostre pizze | Strano Ma Vero!'},{property:'og:description',content:'Una base, quattro classici: scegli la pizza completa di condimenti da finire a casa. Catalogo dimostrativo.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),
+ component: CatalogPage,
+});
+function CatalogPage(){return <main className="catalog-page section-space"><div className="breadcrumbs"><Link to="/">Home</Link><span>/</span><span>Le pizze</span></div><div className="section-heading"><div><div className="eyebrow">UNA BASE. QUATTRO MODI DI AMARLA.</div><h1>Le nostre <em>pizze.</em></h1></div><p>La base è sempre quella.<br/>La differenza? I condimenti del tuo classico.</p></div><PizzaCatalog/><p className="catalog-disclaimer">Ogni articolo comprende una base pizza standard cotta al 90% e i condimenti preconfezionati della ricetta. Foto, composizioni e prezzi sono esempi per questa dimostrazione.</p></main>;}
