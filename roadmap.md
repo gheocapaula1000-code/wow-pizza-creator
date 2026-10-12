@@ -5,6 +5,6 @@
 - [x] Rafforzare l’effetto wow con animazioni e interazioni curate.
 - [x] Richiedere la pubblicazione della demo al link provvisorio https://wow-pizza-creator.lovable.app (disponibilità non ancora confermata).
 - [x] Uniformare il caricamento di React e verificare pagina, ingredienti e riepilogo senza errori nella nuova sessione.
-- [ ] Rinominare la demo Strano Ma Vero! ed eliminare Kit dai testi.
-- [ ] Integrare un video della pizza e rafforzare animazioni e presentazione.
-- [ ] Verificare interazioni e video, e fornire una stima indicativa dei crediti.
+- [x] Rinominare la demo Strano Ma Vero! ed eliminare Kit dai testi.
+- [x] Integrare un video della pizza e rafforzare animazioni e presentazione.
+- [x] Verificare interazioni e video, e fornire una stima indicativa dei crediti (non un consuntivo; generazione video variabile).
