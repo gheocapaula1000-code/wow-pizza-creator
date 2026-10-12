@@ -4,4 +4,4 @@
 - [x] Verificare la dimostrazione e chiarire che non è un negozio operativo.
 - [x] Rafforzare l’effetto wow con animazioni e interazioni curate.
 - [x] Richiedere la pubblicazione della demo al link provvisorio https://wow-pizza-creator.lovable.app (disponibilità non ancora confermata).
-- [ ] Verificare e prevenire l’errore della schermata bianca legato al caricamento di React.
+- [x] Uniformare il caricamento di React e verificare pagina, ingredienti e riepilogo senza errori nella nuova sessione.
