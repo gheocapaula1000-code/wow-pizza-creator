@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Pause, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import film from '@/assets/pizza-film.asset.json';
+import film from '@/assets/pizza-film-web.asset.json';
 import poster from '@/assets/pizza-editorial.jpg';
 
 export function PizzaFilm() {
