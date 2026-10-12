@@ -25,7 +25,7 @@ const recipes: Record<string, string[]> = {
 };
 function Index() {
  const [recipe,setRecipe] = useState('Diavola');
- const [selected,setSelected] = useState<string[]>(recipes.Diavola);
+ const [selected,setSelected] = useState<string[]>(recipes['Diavola'] ?? []);
  const [box,setBox] = useState<string[] | null>(null);
  const [open,setOpen] = useState(false);
  const toggle = (ingredient: string) => { setSelected(previous => previous.includes(ingredient) ? previous.filter(item => item !== ingredient) : [...previous,ingredient]); };
@@ -55,7 +55,7 @@ function Index() {
    </div>
    <section id="crea" className="section">
     <div className="section-heading"><div><div className="eyebrow text-primary">Il tuo piccolo capolavoro</div><h2>Stasera, il pizzaiolo sei tu.</h2></div><p className="text-sm text-muted-foreground">Parti da un classico. Finisci a modo tuo.</p></div>
-    <div className="recipe-tabs" aria-label="Scegli la ricetta">{Object.keys(recipes).map(name => <Button key={name} variant={recipe === name ? 'default' : 'outline'} onClick={() => { setRecipe(name); setSelected(recipes[name]); }} aria-pressed={recipe === name}>{name}</Button>)}</div>
+    <div className="recipe-tabs" aria-label="Scegli la ricetta">{Object.entries(recipes).map(([name,items]) => <Button key={name} variant={recipe === name ? 'default' : 'outline'} onClick={() => { setRecipe(name); setSelected(items); }} aria-pressed={recipe === name}>{name}</Button>)}</div>
     <div className="builder">
      <img className="kit-photo" src={kitImage} alt="Esempio di kit: base pizza precotta con pomodoro, mozzarella e altri ingredienti in ciotole separate" width={1024} height={1024} loading="lazy"/>
      <div><div className="eyebrow text-primary">La tua pizza kit</div><h3 className="mt-3">{recipe}</h3><p className="builder-description">La nostra base cotta al 90%, in formato standard.<br/>Aggiungi gli ingredienti che ami: arrivano tutti separati.</p>
