@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PizzeRouteImport } from './routes/pizze'
+import { Route as PizzaSlugRouteImport } from './routes/pizza.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PizzeRoute = PizzeRouteImport.update({
+  id: '/pizze',
+  path: '/pizze',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PizzaSlugRoute = PizzaSlugRouteImport.update({
+  id: '/pizza/$slug',
+  path: '/pizza/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/pizze': typeof PizzeRoute
+  '/pizza/$slug': typeof PizzaSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/pizze': typeof PizzeRoute
+  '/pizza/$slug': typeof PizzaSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/pizze': typeof PizzeRoute
+  '/pizza/$slug': typeof PizzaSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/pizze' | '/pizza/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/pizze' | '/pizza/$slug'
+  id: '__root__' | '/' | '/pizze' | '/pizza/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PizzeRoute: typeof PizzeRoute
+  PizzaSlugRoute: typeof PizzaSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pizze': {
+      id: '/pizze'
+      path: '/pizze'
+      fullPath: '/pizze'
+      preLoaderRoute: typeof PizzeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pizza/$slug': {
+      id: '/pizza/$slug'
+      path: '/pizza/$slug'
+      fullPath: '/pizza/$slug'
+      preLoaderRoute: typeof PizzaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PizzeRoute: PizzeRoute,
+  PizzaSlugRoute: PizzaSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
