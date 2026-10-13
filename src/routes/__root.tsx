@@ -77,9 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "stylesheet", href: pwaCss },
-      { rel: "manifest", href: "/manifest-v4.json" },
-      { rel: "icon", href: "/favicon-v4.png", type: "image/png", sizes: "64x64" },
-      { rel: "icon", href: "/favicon-v4.ico", type: "image/x-icon" },
+      { rel: "manifest", href: "/manifest-v6.json" },
+      { rel: "icon", href: "/favicon-v6.png", type: "image/png", sizes: "64x64" },
+      { rel: "icon", href: "/favicon-v6.ico", type: "image/x-icon" },
       // Icon embedded in the page: the phone never has to download it separately.
       { rel: "apple-touch-icon", href: touchIconDataUri, sizes: "180x180" },
 
