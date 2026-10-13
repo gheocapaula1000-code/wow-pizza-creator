@@ -1,4 +1,6 @@
 # Demo pizza
+- [x] Generare 30 fotografie dedicate e coerenti con i condimenti di ciascuna pizza.
+- [x] Collegare le fotografie al catalogo condiviso senza cambiare pagine o slider e verificare catalogo e confronti.
 - [x] Integrare il film promozionale caricato, aggiornare copertina e durata, verificare play, audio, replay e mobile.
 - [x] Sostituire tutte le scene di pizza condita nel forno a legna e correggere la cottura finale a tre minuti.
 - [x] Uniformare tutti i filmati all’avvio automatico unico con «Guarda di nuovo» e verificare il percorso.
