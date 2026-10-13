@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import pwaCss from "../styles-pwa.css?url";
 import { PizzaStoreProvider } from "@/components/pizza-store";
+import { touchIconDataUri } from "@/lib/touch-icon";
 import { BottomNav } from "@/components/bottom-nav";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
