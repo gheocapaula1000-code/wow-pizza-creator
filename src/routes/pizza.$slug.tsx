@@ -18,6 +18,10 @@ export const Route = createFileRoute('/pizza/$slug')({
     meta: [
       { title: p ? `${p.name} — Base pizza e condimenti | Strano Ma Vero!` : 'Pizza non disponibile | Strano Ma Vero!' },
       { name: 'description', content: p ? `${p.name}: base pizza standard cotta al 90% e condimenti preconfezionati con ${p.toppings.join(', ')}.` : 'Pizza non disponibile.' },
+      { property: 'og:title', content: p ? `${p.name} | Strano Ma Vero!` : 'Pizza non disponibile | Strano Ma Vero!' },
+      { property: 'og:description', content: p ? `Una base cotta al 90% e i condimenti della ${p.name}, da completare a casa. Catalogo dimostrativo.` : 'Scopri le pizze del catalogo dimostrativo Strano Ma Vero.' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
     ],
   }),
   component: ProductPage,
