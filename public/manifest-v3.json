@@ -1,0 +1,30 @@
+{
+  "name": "Basex Pizza | Strano Ma Vero!",
+  "short_name": "Basex Pizza",
+  "description": "Base pizza precotta al 90% e condimenti da finire a casa.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f7f4",
+  "theme_color": "#c45c26",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png?v=2",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png?v=2",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png?v=2",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
