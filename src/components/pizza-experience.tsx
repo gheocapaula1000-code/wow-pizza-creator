@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import base from '@/assets/pizza-base.jpg';
 import finished from '@/assets/diavola.jpg';
-import preparation from '@/assets/strano-ma-vero-promo.mp4.asset.json';
+import preparation from '@/assets/strano-ma-vero-promo.webm.asset.json';
 import promoPoster from '@/assets/strano-ma-vero-promo-poster.jpg.asset.json';
 import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
