@@ -1,13 +1,19 @@
 {
-  "name": "Strano Ma Vero! — Wow Pizza Creator",
-  "short_name": "Strano Ma Vero",
-  "description": "Base pizza cotta al 90% e condimenti scelti da te, da completare a casa.",
+  "name": "Basex Pizza | Strano Ma Vero!",
+  "short_name": "Basex Pizza",
+  "description": "Base pizza precotta al 90% e condimenti da finire a casa.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8f7f4",
   "theme_color": "#c45c26",
   "orientation": "portrait",
   "icons": [
+    {
+      "src": "/basexpizza-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
     {
       "src": "/favicon.svg",
       "sizes": "any",
