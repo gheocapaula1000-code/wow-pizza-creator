@@ -225,3 +225,25 @@ a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
  .oven-copy h2 { font-size:38px; }
  .oven-copy p { font-size:14px; }
 }
+
+/* Promo film — Strano Ma Vero, 21 secondi */
+.promo-band { max-width:1280px; margin:0 auto; padding:70px 5% 80px; }
+.promo-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:28px; }
+.promo-heading h2 { font-size:clamp(34px,4.6vw,58px); font-weight:800; letter-spacing:-0.02em; line-height:1.05; margin-top:16px; }
+.promo-heading h2 em { font-style:normal; color:var(--primary); }
+.promo-heading>span { font-size:10px; letter-spacing:.15em; opacity:.7; white-space:nowrap; }
+.promo-stage { position:relative; overflow:hidden; border-radius:8px; background:var(--ink); aspect-ratio:16/9; box-shadow:var(--shadow); }
+.promo-stage video { width:100%; height:100%; object-fit:cover; display:block; }
+.promo-button { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); min-height:52px; padding:0 22px; gap:10px; font-size:13px; box-shadow:var(--cinema-shadow); }
+.promo-button span { font-size:10px; opacity:.7; }
+.promo-button.promo-icon { left:auto; top:auto; transform:none; }
+.promo-stage .promo-button.promo-icon:first-of-type { right:18px; bottom:18px; width:52px; height:52px; border-radius:50%; padding:0; }
+.promo-stage .promo-button.promo-icon.promo-sound { right:82px; bottom:18px; width:52px; height:52px; border-radius:50%; padding:0; }
+.promo-replay { font-size:14px; }
+.promo-caption { margin-top:16px; font-size:13px; line-height:1.6; color:var(--muted-foreground); }
+@media(max-width:700px) {
+ .promo-band { padding:45px 6% 55px; }
+ .promo-heading { flex-direction:column; align-items:flex-start; gap:10px; margin-bottom:20px; }
+ .promo-heading>span { font-size:8px; }
+ .promo-button { min-height:46px; padding:0 16px; font-size:11px; }
+}
