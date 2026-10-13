@@ -6,6 +6,7 @@ import { PizzaFilm } from '@/components/pizza-film';
 import { PizzaCatalog } from '@/components/pizza-catalog';
 import { PizzaTransformation, PreparationFilm } from '@/components/pizza-experience';
 import hero from '@/assets/pizza-editorial.jpg';
+import finale from '@/assets/finale-table.jpg';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
@@ -34,6 +35,6 @@ function Home() {
   <PizzaTransformation/>
   <PreparationFilm/>
   <section className="method-section section-space" data-reveal><div className="section-heading"><div><div className="eyebrow">TRE GESTI. UNA GRANDE SERATA.</div><h2>Il resto è<br/><em>solo appetito.</em></h2></div><p>La ricetta arriva già pensata.<br/>Il piacere di finirla è tutto tuo.</p></div><div className="method-grid">{[{title:'Scegli un classico.',copy:'Ogni articolo ha la stessa base e i condimenti preconfezionati della sua ricetta.',icon:Pizza},{title:'Dai il tuo tocco.',copy:'Apri i condimenti della pizza scelta e distribuiscili sulla base precotta al 90%.',icon:PackageOpen},{title:'Completa. Assapora.',copy:'Finisci la cottura nel tuo forno seguendo le istruzioni della confezione.',icon:Flame}].map((step,i)=><div className="method-step" key={step.title}><span>0{i+1}</span><step.icon/><h3>{step.title}</h3><p>{step.copy}</p></div>)}</div></section>
-  <section className="closing-band"><span>LA SERATA È TUA.</span><h2>Falla <em>buona.</em></h2><Button asChild variant="secondary" size="lg"><Link to="/pizze">Scegli le tue pizze <ArrowUpRight/></Link></Button></section>
+  <section className="closing-band" data-reveal><img className="closing-photo" src={finale} alt="Pizza Diavola finita sul tavolo, una fetta sollevata con il filante della mozzarella" width={1536} height={1024} loading="lazy"/><div className="closing-copy"><span>LA SERATA È TUA.</span><h2>Falla <em>buona.</em></h2><p>Una base, quattro classici, il tuo forno. Il resto è già sulla tavola.</p><Button asChild variant="secondary" size="lg"><Link to="/pizze">Scegli le tue pizze <ArrowUpRight/></Link></Button></div></section>
  </main>;
 }
