@@ -37,7 +37,7 @@ export function PromoFilm() {
         {playing && (
           <>
             <Button className="promo-button promo-icon" variant="secondary" size="icon" aria-label="Metti in pausa il promo" onClick={toggle}><Pause/></Button>
-            <Button className="promo-button promo-icon" variant="secondary" size="icon" aria-label={muted ? 'Attiva audio del promo' : 'Disattiva audio del promo'} title={muted ? 'Attiva audio' : 'Disattiva audio'} onClick={() => {
+            <Button className="promo-button promo-icon promo-sound" variant="secondary" size="icon" aria-label={muted ? 'Attiva audio del promo' : 'Disattiva audio del promo'} title={muted ? 'Attiva audio' : 'Disattiva audio'} onClick={() => {
               const next = !muted;
               setMuted(next);
               if (ref.current) ref.current.muted = next;
