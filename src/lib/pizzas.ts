@@ -28,6 +28,8 @@ import gorgonzola_noci from '@/assets/recipe-gorgonzola-noci.jpg';
 import calabrese from '@/assets/recipe-calabrese.jpg';
 import margherita_dop from '@/assets/recipe-margherita-dop.jpg';
 import bianca from '@/assets/recipe-bianca.jpg';
+import parmigiana from '@/assets/recipe-parmigiana.jpg';
+import bresaola from '@/assets/recipe-bresaola.jpg';
 
 export const pizzas = [
   { slug: 'margherita', name: 'Margherita', note: 'Il classico che non ha bisogno di presentazioni.', label: 'L’originale', price: 7.9, image: margherita, toppings: ['Pomodoro', 'Mozzarella', 'Basilico'], category: 'Vegetariane' },
@@ -60,6 +62,8 @@ export const pizzas = [
   { slug: 'calabrese', name: 'Calabrese', note: 'Piccante e corposa.', label: 'Piccante+', price: 10.5, image: calabrese, toppings: ['Pomodoro', 'Mozzarella', 'Nduja', 'Cipolla'], category: 'Piccanti' },
   { slug: 'margherita-dop', name: 'Margherita DOP', note: 'La versione premium dell’originale.', label: 'Premium', price: 9.9, image: margherita_dop, toppings: ['Pomodoro San Marzano', 'Mozzarella di bufala', 'Basilico'], category: 'Vegetariane' },
   { slug: 'bianca', name: 'Pizza Bianca', note: 'Senza pomodoro, solo olio e aromi.', label: 'Bianca', price: 7.5, image: bianca, toppings: ['Olio extravergine', 'Rosmarino', 'Sale', 'Aglio'], category: 'Vegetariane' },
+  { slug: 'parmigiana', name: 'Parmigiana', note: 'Melanzane e parmigiano, la tradizione nel piatto.', label: 'Sud', price: 9.9, image: parmigiana, toppings: ['Pomodoro', 'Mozzarella', 'Melanzane', 'Parmigiano', 'Basilico'], category: 'Vegetariane' },
+  { slug: 'bresaola-rucola', name: 'Bresaola e Rucola', note: 'Elegante, fresca e sorprendente.', label: 'Raffinata', price: 11.5, image: bresaola, toppings: ['Mozzarella', 'Bresaola', 'Rucola', 'Grana padano'], category: 'Classiche' },
 ] as const;
 
 export type PizzaProduct = typeof pizzas[number];
