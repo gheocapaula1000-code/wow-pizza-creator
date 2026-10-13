@@ -15,7 +15,7 @@ export function PromoFilm() {
   }, []);
   const filmSrc = enabled ? (webmOk ? webm.url : mp4.url) : undefined;
   return (
-    <section className="promo-band" aria-labelledby="promo-title">
+    <section className="promo-band" id="film" aria-labelledby="promo-title">
       <div className="promo-heading">
         <div>
           <div className="eyebrow">IL VIDEO. 21 SECONDI, TUTTA LA STORIA.</div>
