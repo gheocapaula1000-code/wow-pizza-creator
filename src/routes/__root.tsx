@@ -11,7 +11,9 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import pwaCss from "../styles-pwa.css?url";
 import { PizzaStoreProvider } from "@/components/pizza-store";
+import { BottomNav } from "@/components/bottom-nav";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -78,9 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Strano Ma Vero! — La pizzeria a casa tua" },
       { name: "description", content: "Strano Ma Vero! Base pizza cotta al 90% e ingredienti scelti da te, da completare a casa." },
+      { name: "theme-color", content: "#c45c26" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "apple-mobile-web-app-title", content: "Strano Ma Vero" },
       { property: "og:title", content: "Strano Ma Vero! — La pizzeria a casa tua" },
       { property: "og:description", content: "La base è nostra, il finale è tuo." },
       { property: "og:type", content: "website" },
@@ -91,7 +97,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "stylesheet",
+        href: pwaCss,
+      },
+      { rel: "manifest", href: "/manifest.json" },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap" },
     ],
   }),
@@ -120,8 +132,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Shared in-memory demonstration bag persists across client navigation. */}
-      <PizzaStoreProvider><Outlet /></PizzaStoreProvider>
+      <PizzaStoreProvider>
+        <Outlet />
+        <BottomNav />
+      </PizzaStoreProvider>
     </QueryClientProvider>
   );
 }
