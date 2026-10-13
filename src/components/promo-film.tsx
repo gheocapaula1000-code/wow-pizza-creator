@@ -6,46 +6,24 @@ import mp4 from '@/assets/strano-ma-vero-promo-21s.mp4.asset.json';
 import poster from '@/assets/strano-ma-vero-promo-21s-poster.jpg.asset.json';
 import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
-export function PromoFilm() {
-  const { ref, enabled, playing, started, showReplay, toggle, onPlay, onPause, onEnded } = usePizzaVideo();
+export function HeroPromoFilm() {
+  const { ref, enabled, playing, started, showReplay, toggle, onPlay, onPause, onEnded } = usePizzaVideo({ maxAutoPlays: 1 });
   const [muted, setMuted] = useState(true);
   const [webmOk, setWebmOk] = useState(false);
   useEffect(() => {
     if (document.createElement('video').canPlayType('video/webm; codecs="vp9, opus"')) setWebmOk(true);
   }, []);
   const filmSrc = enabled ? (webmOk ? webm.url : mp4.url) : undefined;
-  return (
-    <section className="promo-band" id="film" aria-labelledby="promo-title">
-      <div className="promo-heading">
-        <div>
-          <div className="eyebrow">IL VIDEO. 21 SECONDI, TUTTA LA STORIA.</div>
-          <h2 id="promo-title">Scopri Strano Ma Vero.<br/><em>La base cotta al 90%.</em></h2>
-        </div>
-        <span>STRANO MA VERO! / IL PROMO · 00:21</span>
-      </div>
-      <div className="promo-stage">
-        <video ref={ref} src={filmSrc} poster={poster.url} preload="none" playsInline muted={muted} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label="Promo Strano Ma Vero: un ragazzo con gli amici in cucina presenta le basi pizza cotte al 90% con ingredienti freschi"/>
-        {!playing && (
-          <Button
-            className={showReplay ? 'promo-button promo-replay' : 'promo-button'}
-            variant="secondary"
-            onClick={() => { setMuted(true); if (ref.current) ref.current.muted = true; toggle(); }}
-          >
-            <Play/> {showReplay ? 'Guarda di nuovo' : 'Guarda il promo'} <span>00:21</span>
-          </Button>
-        )}
-        {playing && (
-          <>
-            <Button className="promo-button promo-icon" variant="secondary" size="icon" aria-label="Metti in pausa il promo" onClick={toggle}><Pause/></Button>
-            <Button className="promo-button promo-icon promo-sound" variant="secondary" size="icon" aria-label={muted ? 'Attiva audio del promo' : 'Disattiva audio del promo'} title={muted ? 'Attiva audio' : 'Disattiva audio'} onClick={() => {
-              const next = !muted;
-              setMuted(next);
-              if (ref.current) ref.current.muted = next;
-            }}>{muted ? <VolumeX/> : <Volume2/>}</Button>
-          </>
-        )}
-      </div>
-      <div className="promo-caption"><span>Un ragazzo, gli amici, la cucina di casa: le basi cotte al 90% e ingredienti freschi. Il gran finale è tuo.</span></div>
-    </section>
-  );
+  return <>
+    <video ref={ref} className="hero-film" src={filmSrc} poster={poster.url} muted={muted} playsInline preload={enabled ? 'auto' : 'none'} aria-hidden="true" onPlay={onPlay} onPause={onPause} onEnded={onEnded}/>
+    {playing && <>
+      <Button className="film-control" variant="outline" size="icon" onClick={toggle} aria-label="Metti in pausa il video"><Pause/></Button>
+      <Button className="film-control film-sound" variant="outline" size="icon" aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'} onClick={() => {
+        const next = !muted;
+        setMuted(next);
+        if (ref.current) ref.current.muted = next;
+      }}>{muted ? <VolumeX/> : <Volume2/>}</Button>
+    </>}
+    {started && !playing && showReplay && <Button className="hero-replay" variant="secondary" onClick={toggle}><Play/> Guarda ancora</Button>}
+  </>;
 }

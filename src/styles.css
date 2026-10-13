@@ -50,6 +50,7 @@
 .hero-edition { position:absolute; bottom:34px; left:calc(5% + 60px); display:flex; flex-direction:column; gap:5px; font-size:9px; font-weight:600; }
 .film-control { position:absolute; left:5%; bottom:30px; width:44px; height:44px; border-radius:50%; background:var(--background); color:var(--foreground); z-index:3; }
 .hero-replay { position:absolute; right:5%; top:24px; z-index:3; min-height:44px; }
+.film-control.film-sound { left:calc(5% + 56px); }
 .round-seal { position:absolute; right:5%; bottom:30px; border-radius:50%; width:125px; height:125px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:var(--primary); color:var(--primary-foreground); animation:seal-sway 7s ease-in-out infinite; }
 .round-seal span { font-size:8px; font-weight:600; }
 .round-seal strong { font-size:46px; line-height:1.1; }
