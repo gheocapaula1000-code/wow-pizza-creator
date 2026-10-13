@@ -6,14 +6,56 @@ import { usePizzaStore } from '@/components/pizza-store';
 import { Button } from '@/components/ui/button';
 import base from '@/assets/pizza-base.jpg';
 import { RelatedPizzas } from '@/components/related-pizzas';
+import { PizzaComparison } from '@/components/pizza-comparison';
+
 export const Route = createFileRoute('/pizza/$slug')({
- loader:({params})=>{const product=pizzas.find(p=>p.slug===params.slug);if(!product)throw notFound();return product;},
- head:({loaderData:p})=>({meta:[{title:p?`${p.name} — Base pizza e condimenti | Strano Ma Vero!`:'Pizza non disponibile | Strano Ma Vero!'},{name:'description',content:p?`${p.name}: base pizza standard cotta al 90% e condimenti preconfezionati con ${p.toppings.join(', ')}. Scopri il concept da finire a casa.`:'Questa pizza non è presente nel catalogo dimostrativo.'},{property:'og:title',content:p?`${p.name} | Strano Ma Vero!`:'Pizza non disponibile | Strano Ma Vero!'},{property:'og:description',content:p?`Una base cotta al 90% e i condimenti della ${p.name}, già abbinati. Il gran finale lo fai tu.`:'Scopri le pizze classiche del nostro concept.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),
- component: ProductPage,
- remountDeps: ({ params }) => params.slug,
- notFoundComponent:()=> <main className="section-space"><h1>Questa pizza non è nel menu.</h1><Button asChild><Link to="/pizze">Scopri le pizze <ArrowRight/></Link></Button></main>,
+  loader: ({ params }) => {
+    const product = pizzas.find(p => p.slug === params.slug);
+    if (!product) throw notFound();
+    return product;
+  },
+  head: ({ loaderData: p }) => ({
+    meta: [
+      { title: p ? `${p.name} — Base pizza e condimenti | Strano Ma Vero!` : 'Pizza non disponibile | Strano Ma Vero!' },
+      { name: 'description', content: p ? `${p.name}: base pizza standard cotta al 90% e condimenti preconfezionati con ${p.toppings.join(', ')}.` : 'Pizza non disponibile.' },
+    ],
+  }),
+  component: ProductPage,
+  remountDeps: ({ params }) => params.slug,
+  notFoundComponent: () => <main><h1>Pizza non trovata</h1><Link to="/pizze">Torna alle pizze</Link></main>,
 });
-function ProductPage(){
- const p=Route.useLoaderData();const {add,bag,showBag}=usePizzaStore();const [quantity,setQuantity]=useState(1);const [photo,setPhoto]=useState<'pizza'|'base'>('pizza');
- return <main className="product-page section-space"><div className="breadcrumbs"><Link to="/">Home</Link><span>/</span><Link to="/pizze">Le pizze</Link><span>/</span><span>{p.name}</span></div><div className="product-detail"><div><div className="detail-photo" key={photo}><img src={photo==='pizza'?p.image:base} alt={photo==='pizza'?`${p.name}, esempio di risultato finale`:'Base standard precotta al 90%, uguale per tutte le pizze'} width={1024} height={1024}/><span className="product-tag">{photo==='pizza'?p.label:'La stessa base, per tutte'}</span></div><div className="detail-photo-tabs"><Button variant={photo==='pizza'?'default':'outline'} aria-pressed={photo==='pizza'} onClick={()=>setPhoto('pizza')}>Il risultato finale</Button><Button variant={photo==='base'?'default':'outline'} aria-pressed={photo==='base'} onClick={()=>setPhoto('base')}>La base inclusa</Button></div><small className="image-disclaimer">Foto illustrative del concept, non fotografie del prodotto del cliente.</small></div><div className="detail-copy"><div className="eyebrow">BASE + CONDIMENTI PRECONFEZIONATI</div><h1>{p.name}</h1><p className="detail-note">{p.note}</p><strong className="detail-price">{euro(p.price)}<small>Prezzo dimostrativo</small></strong><div className="included"><h2>Cosa comprende</h2><p><Check/> Una base pizza standard cotta al 90%</p><p><Check/> I condimenti già abbinati alla {p.name}</p><div className="topping-list">{p.toppings.map(t=><span key={t}>{t}</span>)}</div></div><div className="detail-purchase"><div className="quantity"><Button variant="ghost" size="icon" disabled={quantity<=1} aria-label="Riduci quantità" onClick={()=>setQuantity(n=>Math.max(1,n-1))}><Minus/></Button><output aria-live="polite">{quantity}</output><Button variant="ghost" size="icon" disabled={quantity>=20} aria-label="Aumenta quantità" onClick={()=>setQuantity(n=>Math.min(20,n+1))}><Plus/></Button></div><Button size="lg" onClick={()=>add(p.slug,quantity)}>Aggiungi al carrello <Plus/></Button></div>{(bag[p.slug]??0)>0 && <Button variant="link" onClick={showBag}>{bag[p.slug]} nel carrello · Vedi riepilogo <ArrowRight/></Button>}<div className="product-facts"><p><PackageOpen/> Condimenti preconfezionati per questa ricetta</p><p><Flame/> Ultimi 3 minuti di cottura nel forno di casa</p></div><details><summary>Preparazione e conservazione</summary><p>La base di pasta cuoce da sola nel forno a legna, senza ingredienti. A casa aggiungi i condimenti della ricetta e completa la pizza con gli ultimi 3 minuti nel tuo forno. Temperatura, conservazione e scadenza saranno riportate sulla confezione dal produttore.</p></details><details><summary>Ingredienti e allergeni</summary><p>La composizione mostrata è un esempio. Elenco completo degli ingredienti, allergeni, quantità e valori nutrizionali devono essere confermati sull’etichetta del produttore prima della vendita.</p></details><p className="demo-note">Dimostrazione: nessun ordine o pagamento. Prezzi e ricette da confermare con il cliente.</p></div></div><Button asChild variant="link"><Link to="/pizze"><ArrowLeft/> Torna alle pizze</Link></Button><RelatedPizzas key={p.slug} slug={p.slug}/></main>;
+
+function ProductPage() {
+  const p = Route.useLoaderData();
+  const { add, bag, showBag } = usePizzaStore();
+  const [quantity, setQuantity] = useState(1);
+
+  return (
+    <main className="product-page section-space">
+      <div className="breadcrumbs"><Link to="/">Home</Link> / <Link to="/pizze">Le pizze</Link> / {p.name}</div>
+      <div className="product-detail">
+        <div>
+          <PizzaComparison base={base} finished={p.image} finishedAlt={`${p.name} con i condimenti della ricetta`} />
+          <small className="image-disclaimer">Slider: da base plain a pizza farcita con gli ingredienti di questa ricetta.</small>
+        </div>
+        <div className="detail-copy">
+          <div className="eyebrow">BASE + CONDIMENTI</div>
+          <h1>{p.name}</h1>
+          <p>{p.note}</p>
+          <strong>{euro(p.price)}</strong>
+          <div className="topping-list">{p.toppings.map(t => <span key={t}>{t}</span>)}</div>
+          <div className="detail-purchase">
+            <div className="quantity">
+              <Button variant="ghost" size="icon" onClick={() => setQuantity(n => Math.max(1, n - 1))}><Minus /></Button>
+              <output>{quantity}</output>
+              <Button variant="ghost" size="icon" onClick={() => setQuantity(n => Math.min(20, n + 1))}><Plus /></Button>
+            </div>
+            <Button onClick={() => add(p.slug, quantity)}>Aggiungi al carrello</Button>
+          </div>
+          {(bag[p.slug] ?? 0) > 0 && <Button variant="link" onClick={showBag}>Vedi carrello</Button>}
+        </div>
+      </div>
+      <RelatedPizzas slug={p.slug} />
+    </main>
+  );
 }
