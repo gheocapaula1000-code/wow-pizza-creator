@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { PizzaFilm } from '@/components/pizza-film';
 import { PizzaCatalog } from '@/components/pizza-catalog';
 import { PizzaTransformation, PreparationFilm } from '@/components/pizza-experience';
+import { OvenFilm, PizzaShowcase } from '@/components/pizza-showcase';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
 
@@ -31,7 +32,9 @@ function Home() {
   </section>
   <div className="promise-bar"><div><Pizza/><span>Una base, sempre la stessa</span></div><div><PackageOpen/><span>Condimenti pronti per ogni ricetta</span></div><div><Flame/><span>Il finale nel tuo forno</span></div></div>
   <section className="home-catalog section-space" id="crea"><div className="section-heading" data-reveal><div><div className="eyebrow">I CLASSICI. IN UNA FORMA NUOVA.</div><h2>Stasera si fa<br/><em>come in pizzeria.</em></h2></div><div className="heading-aside"><p>Non devi inventare una ricetta.<br/>Devi solo scegliere la tua preferita.</p><Link to="/pizze">Tutte le pizze <ArrowUpRight/></Link></div></div><PizzaCatalog/></section>
-  <div className="taste-ribbon" aria-hidden="true"><div>{Array.from({length:4},(_,i)=><span key={i}>STRANO MA VERO! <Pizza/> LA TUA PIZZA. IL TUO FINALE. <Flame/></span>)}</div></div>
+   <PizzaShowcase/>
+   <OvenFilm/>
+   <div className="taste-ribbon" aria-hidden="true"><div>{Array.from({length:4},(_,i)=><span key={i}>STRANO MA VERO! <Pizza/> LA TUA PIZZA. IL TUO FINALE. <Flame/></span>)}</div></div>
   <PizzaTransformation/>
   <PreparationFilm/>
   <section className="method-section section-space" data-reveal><div className="section-heading"><div><div className="eyebrow">TRE GESTI. UNA GRANDE SERATA.</div><h2>Il resto è<br/><em>solo appetito.</em></h2></div><p>La ricetta arriva già pensata.<br/>Il piacere di finirla è tutto tuo.</p></div><div className="method-grid">{[{title:'Scegli un classico.',copy:'Ogni articolo ha la stessa base e i condimenti preconfezionati della sua ricetta.',icon:Pizza},{title:'Dai il tuo tocco.',copy:'Apri i condimenti della pizza scelta e distribuiscili sulla base precotta al 90%.',icon:PackageOpen},{title:'Completa. Assapora.',copy:'Finisci la cottura nel tuo forno seguendo le istruzioni della confezione.',icon:Flame}].map((step,i)=><div className="method-step" key={step.title}><span>0{i+1}</span><step.icon/><h3>{step.title}</h3><p>{step.copy}</p></div>)}</div></section>
