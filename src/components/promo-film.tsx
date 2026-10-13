@@ -24,6 +24,6 @@ export function HeroPromoFilm() {
         if (ref.current) ref.current.muted = next;
       }}>{muted ? <VolumeX/> : <Volume2/>}</Button>
     </>}
-    {started && !playing && showReplay && <Button className="hero-replay" variant="secondary" onClick={toggle}><Play/> Guarda ancora</Button>}
+    {started && !playing && <Button className="hero-replay" variant="secondary" onClick={toggle}><Play/> {showReplay ? 'Guarda ancora' : 'Riprendi il video'}</Button>}
   </>;
 }
