@@ -1,9 +1,11 @@
 import { Link } from '@tanstack/react-router';
 import { Home, Pizza, Play, ShoppingBag } from 'lucide-react';
 import { usePizzaStore } from '@/components/pizza-store';
+import { Button } from '@/components/ui/button';
 
 export function BottomNav() {
-  const { count } = usePizzaStore();
+  const { bag, showBag } = usePizzaStore();
+  const count = Object.values(bag).reduce((total, quantity) => total + quantity, 0);
   return (
     <nav className="bottom-nav" aria-label="Navigazione mobile">
       <Link to="/" className="bottom-nav-item" activeOptions={{ exact: true }}>
@@ -18,11 +20,11 @@ export function BottomNav() {
         <Play />
         <span>Film</span>
       </a>
-      <button type="button" className="bottom-nav-item" onClick={() => (document.querySelector('.bag-trigger') as HTMLButtonElement)?.click()}>
+      <Button variant="ghost" className="bottom-nav-item" onClick={showBag}>
         <ShoppingBag />
         <span>Carrello</span>
         {count > 0 && <span className="bottom-nav-badge">{count}</span>}
-      </button>
+      </Button>
     </nav>
   );
 }
