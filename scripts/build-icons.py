@@ -14,13 +14,13 @@ import os
 import sys
 import urllib.request
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, "public")
 FONT = os.path.join(HERE, "Manrope-800.ttf")
-V = "v7"          # contrassegno: cambialo a ogni nuova grafica
+V = "v6"          # contrassegno: cambialo a ogni nuova grafica
 COLS = 64         # palette: tiene i bordi morbidi, file ~4 volte più piccolo
 
 # Il marchio è Manrope (già caricato dal sito). Se il file non c'è, lo scarica.
