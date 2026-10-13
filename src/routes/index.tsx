@@ -6,6 +6,7 @@ import { PizzaFilm } from '@/components/pizza-film';
 import { PizzaCatalog } from '@/components/pizza-catalog';
 import { PizzaTransformation, PreparationFilm } from '@/components/pizza-experience';
 import { OvenFilm, PizzaShowcase } from '@/components/pizza-showcase';
+import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
 
@@ -31,6 +32,7 @@ function Home() {
    <div className="hero-edition"><span>BUONA COME UN’IDEA GENIALE.</span><span>90% NOI. 10% TU.</span></div><div className="round-seal"><span>QUASI PRONTA</span><strong>90%</strong><span>COMPLETAMENTE TUA</span></div>
   </section>
   <div className="promise-bar"><div><Pizza/><span>Una base, sempre la stessa</span></div><div><PackageOpen/><span>Condimenti pronti per ogni ricetta</span></div><div><Flame/><span>Il finale nel tuo forno</span></div></div>
+  <PromoFilm/>
   <section className="home-catalog section-space" id="crea"><div className="section-heading" data-reveal><div><div className="eyebrow">I CLASSICI. IN UNA FORMA NUOVA.</div><h2>Stasera si fa<br/><em>come in pizzeria.</em></h2></div><div className="heading-aside"><p>Non devi inventare una ricetta.<br/>Devi solo scegliere la tua preferita.</p><Link to="/pizze">Tutte le pizze <ArrowUpRight/></Link></div></div><PizzaCatalog/></section>
    <PizzaShowcase/>
    <OvenFilm/>
