@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function usePizzaVideo({ maxAutoPlays = 2 }: { maxAutoPlays?: number } = {}) {
+export function usePizzaVideo({ maxAutoPlays = 1 }: { maxAutoPlays?: number } = {}) {
   const ref = useRef<HTMLVideoElement>(null);
   const attempted = useRef(false);
   const userPaused = useRef(false);
