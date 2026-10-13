@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { PizzaFilm } from '@/components/pizza-film';
 import { PizzaCatalog } from '@/components/pizza-catalog';
 import { PizzaTransformation, PreparationFilm } from '@/components/pizza-experience';
+import { OvenFilm, PizzaShowcase } from '@/components/pizza-showcase';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
 
