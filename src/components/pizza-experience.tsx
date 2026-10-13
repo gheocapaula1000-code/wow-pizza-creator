@@ -1,11 +1,12 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Play, ArrowUpRight, MoveHorizontal, Pause } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import base from '@/assets/pizza-base.jpg';
 import finished from '@/assets/diavola.jpg';
-import preparation from '@/assets/preparation-film-web.asset.json';
+import preparation from '@/assets/preparation-long.webm.asset.json';
+import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 export function PizzaTransformation() {
  const [amount,setAmount] = useState(50);
@@ -15,9 +16,6 @@ export function PizzaTransformation() {
  </section>;
 }
 export function PreparationFilm() {
- const video = useRef<HTMLVideoElement>(null);
- const [started,setStarted] = useState(false);
- const [playing,setPlaying] = useState(false);
- const start = () => { setStarted(true); const player=video.current; if (!player) return; player.play().catch(() => setPlaying(false)); };
- return <section className="film-section" id="film"><div className="film-heading"><div><div className="eyebrow">DALLA BASE AL PRIMO MORSO</div><h2>Non immaginarla.<br/><em>Guardala succedere.</em></h2></div><span>STRANO MA VERO! / IL FILM</span></div><div className="preparation-stage"><video ref={video} src={preparation.url} poster={finished} preload="none" playsInline muted controls={started} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} aria-label="Filmato dimostrativo della preparazione della pizza"/>{!started && <Button className="film-play" variant="secondary" onClick={start}><Play/> Guarda la preparazione <span>00:08</span></Button>}{started && <Button className="preparation-toggle" variant="secondary" size="icon" aria-label={playing ? 'Metti in pausa la preparazione':'Riproduci la preparazione'} onClick={() => {if(playing) video.current?.pause();else start();}}>{playing ? <Pause/>:<Play/>}</Button>}</div><div className="film-caption"><span>La ricetta è pronta. Il gesto finale è tuo.</span><small>Filmato illustrativo generato per il concept</small></div></section>;
+ const { ref, enabled, playing, ended, toggle, onPlay, onPause, onEnded } = usePizzaVideo({ once: true });
+ return <section className="film-section" id="film"><div className="film-heading"><div><div className="eyebrow">DALLA BASE AL PRIMO MORSO</div><h2>Non immaginarla.<br/><em>Guardala succedere.</em></h2></div><span>STRANO MA VERO! / IL FILM · 00:31</span></div><div className="preparation-stage"><video ref={ref} src={enabled ? preparation.url : undefined} poster={finished} preload="none" playsInline muted onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label="Filmato dimostrativo della preparazione della pizza"/>{!playing && <Button className="film-play" variant="secondary" onClick={toggle}><Play/> {ended ? 'Riguarda il film' : 'Guarda il film'} <span>00:31</span></Button>}{playing && <Button className="preparation-toggle" variant="secondary" size="icon" aria-label="Metti in pausa la preparazione" onClick={toggle}><Pause/></Button>}</div><div className="film-caption"><span>La ricetta è pronta. Il gesto finale è tuo.</span><small>Filmato illustrativo generato per il concept</small></div></section>;
 }

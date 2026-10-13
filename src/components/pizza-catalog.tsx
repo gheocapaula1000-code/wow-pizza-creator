@@ -14,7 +14,7 @@ export function PizzaCatalog() {
    <Link className="product-photo" to="/pizza/$slug" params={{slug:p.slug}} aria-label={`Scopri ${p.name}`}><img src={p.image} alt={`Pizza ${p.name}: esempio del risultato dopo la cottura a casa`} width={1024} height={1024} loading="lazy"/><span className="product-tag">{p.label}</span><span className="photo-arrow"><ArrowUpRight/></span></Link>
    <div className="product-topline"><span>0{i+1} / BASE + CONDIMENTI</span><strong>{euro(p.price)}</strong></div>
    <h3><Link to="/pizza/$slug" params={{slug:p.slug}}>{p.name}</Link></h3><p className="product-note">{p.note}</p><p className="product-toppings">{p.toppings.join(' · ')}</p>
-   <Button variant="outline" className="product-add" onClick={() => add(p.slug)} aria-label={`Aggiungi ${p.name} alla borsa`}>{(bag[p.slug] ?? 0)>0 ? <Check/> : <Plus/>} Aggiungi alla borsa{(bag[p.slug] ?? 0)>0 && <span>{bag[p.slug]}</span>}</Button>
+   <Button variant="outline" className="product-add" onClick={() => add(p.slug)} aria-label={`Aggiungi ${p.name} al carrello`}>{(bag[p.slug] ?? 0)>0 ? <Check/> : <Plus/>} Aggiungi al carrello{(bag[p.slug] ?? 0)>0 && <span>{bag[p.slug]}</span>}</Button>
   </article>)}</div>
  </>;
 }
