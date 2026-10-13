@@ -79,8 +79,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/manifest-v4.json" },
       { rel: "icon", href: "/favicon-v4.png", type: "image/png", sizes: "64x64" },
       { rel: "icon", href: "/favicon-v4.ico", type: "image/x-icon" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon-v5.png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon-v5.png", sizes: "180x180" },
+      // Icon embedded in the page: the phone never has to download it separately.
+      { rel: "apple-touch-icon", href: touchIconDataUri, sizes: "180x180" },
 
       { rel: "canonical", href: "https://basexpizza.com" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap" },
