@@ -20,3 +20,4 @@
 - Define preset pizza examples in a shared browser-safe catalog and keep the demonstration bag in a root context; product routes and listings must share the same recipe and never create real orders.
 - Give the catalog and every product detail page route-specific metadata without publishing fictional stock, reviews, or live Offer schema; the concept's example prices are not real commerce data.
 - Derive browser and manifest PNG icons from the supplied Apple touch artwork and keep every referenced icon file present; maskable icons need safe-area padding to avoid cropping the mark.
+- Keep the version marker on every icon and manifest URL (favicon, apple-touch-icon, manifest icons); phones cache the home-screen icon per URL forever, so a changed file at the same address is never re-downloaded — bump the marker whenever the artwork changes.
