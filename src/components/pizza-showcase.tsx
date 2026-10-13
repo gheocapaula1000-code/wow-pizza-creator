@@ -1,49 +1,23 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { pizzas, euro } from '@/lib/pizzas';
-import ovenFilm from '@/assets/oven-film-web.asset.json';
-import ovenPoster from '@/assets/oven-frame.jpg';
+import ovenFilm from '@/assets/oven-correct.webm.asset.json';
+import ovenPoster from '@/assets/plain-base-oven.jpg';
+import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 export function OvenFilm() {
- const video = useRef<HTMLVideoElement>(null);
- const [playing, setPlaying] = useState(false);
- const [enabled, setEnabled] = useState(false);
- useEffect(() => {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-  if (reduced || saveData) return;
-  setEnabled(true);
- }, []);
- useEffect(() => {
-  if (!enabled) return;
-  const player = video.current;
-  if (!player) return;
-  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-   if (entry.isIntersecting) { player.play().then(() => setPlaying(true)).catch(() => setPlaying(false)); }
-   else { player.pause(); setPlaying(false); }
-  }), { threshold: 0.35 });
-  observer.observe(player);
-  return () => observer.disconnect();
- }, [enabled]);
- const toggle = () => {
-  const player = video.current;
-  if (!player) return;
-  if (playing) { player.pause(); setPlaying(false); }
-  else { player.play().then(() => setPlaying(true)).catch(() => setPlaying(false)); }
- };
+ const { ref, enabled, playing, started, toggle, onPlay, onPause, onEnded } = usePizzaVideo();
  return <section className="oven-film" aria-labelledby="oven-title">
-  {enabled
-   ? <video ref={video} src={ovenFilm.url} poster={ovenPoster} preload="metadata" playsInline muted loop aria-label="Filmato cinematografico di una pizza che cuoce nel forno a legna"/>
-   : <img src={ovenPoster} alt="Pizza Margherita che cuoce nel forno a legna tra le fiamme" width={1536} height={1024} loading="lazy"/>}
+  <video ref={ref} src={enabled ? ovenFilm.url : undefined} poster={ovenPoster} preload="none" playsInline muted onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label="Base di pasta senza condimenti che cuoce nel forno a legna"/>
   <div className="oven-overlay" aria-hidden="true"/>
   <div className="oven-copy" data-reveal>
-   <div className="eyebrow">IL FORNO FA IL RESTO</div>
-   <h2 id="oven-title">Novanta secondi.<br/><em>E profuma di pizzeria.</em></h2>
-   <p>La base è già cotta al 90%: nel tuo forno le manca solo il gran finale. La mozzarella fila, il cornicione si colora, la casa profuma.</p>
+   <div className="eyebrow">A LEGNA, SOLO LA BASE.</div>
+   <h2 id="oven-title">Noi cuociamo la base.<br/><em>Il finale è a casa tua.</em></h2>
+   <p>Nel forno a legna entra soltanto la pasta, senza ingredienti. A casa aggiungi i condimenti della tua ricetta e completi la pizza con gli ultimi 3 minuti nel tuo forno.</p>
   </div>
-  {enabled && <Button className="oven-toggle" variant="secondary" size="icon" aria-label={playing ? 'Metti in pausa il filmato del forno' : 'Riproduci il filmato del forno'} onClick={toggle}>{playing ? <Pause/> : <Play/>}</Button>}
+  <Button className={`oven-toggle ${playing ? '' : 'oven-replay'}`} variant="secondary" size={playing ? 'icon' : 'default'} aria-label={playing ? 'Metti in pausa il filmato del forno' : started ? 'Guarda di nuovo la base nel forno' : 'Guarda la base nel forno'} onClick={toggle}>{playing ? <Pause/> : <><Play/> {started ? 'Guarda di nuovo' : 'Guarda la base'}</>}</Button>
  </section>;
 }
 
