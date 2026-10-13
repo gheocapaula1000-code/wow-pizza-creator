@@ -1,7 +1,7 @@
 # Demo pizza
-- [ ] Allungare i filmati di apertura e preparazione e verificare avvio automatico e replay.
-- [ ] Aggiungere correlati scorrevoli nelle schede e rinominare la borsa in carrello.
-- [ ] Verificare impatto entro otto secondi, navigazione e accessibilità.
+- [x] Allungare i filmati di apertura e preparazione e verificare avvio automatico e replay.
+- [x] Aggiungere correlati scorrevoli nelle schede e rinominare la borsa in carrello.
+- [x] Verificare impatto entro otto secondi, navigazione e accessibilità.
 - [x] Sostituire il compositore con articoli di pizza completa: stessa base e condimenti preconfezionati per ricetta.
 - [x] Ridisegnare catalogo, dettagli e borsa dimostrativa con immagini dedicate e interazioni curate.
 - [x] Aggiungere un video evidente e una trasformazione interattiva base/pizza, migliorando la SEO delle pagine.
