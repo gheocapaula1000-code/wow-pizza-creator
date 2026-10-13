@@ -58,7 +58,7 @@ export function PizzaShowcase() {
   const timer = window.setInterval(() => setIndex(current => (current + 1) % count), 4200);
   return () => window.clearInterval(timer);
  }, [paused, count]);
- const current = pizzas[index];
+ const current = pizzas[index] ?? pizzas[0];
  return <section className="showcase section-space" aria-labelledby="showcase-title" aria-roledescription="carosello" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
   <div className="section-heading" data-reveal>
    <div><div className="eyebrow">LE QUATTRO. IN GRANDE.</div><h2 id="showcase-title">Una base.<br/><em>Quattro leggende.</em></h2></div>
