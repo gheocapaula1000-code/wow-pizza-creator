@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { MoveHorizontal } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
-import base from '@/assets/pizza-base.jpg';
 
-export function PizzaComparison({
-  finished,
-  finishedAlt = 'Pizza finita con i condimenti',
-  className = '',
-}: {
+interface Props {
+  base: string;
   finished: string;
+  baseAlt?: string;
   finishedAlt?: string;
-  className?: string;
-}) {
+}
+
+export function PizzaComparison({ base, finished, baseAlt = 'La base pizza precotta al 90%', finishedAlt = 'Il risultato finale' }: Props) {
   const [amount, setAmount] = useState(50);
   return (
-    <div className={`comparison ${className}`}>
+    <div className="comparison">
       <div className="comparison-images">
-        <img src={base} alt="La base pizza precotta al 90%, senza condimenti" width={1024} height={1024} loading="lazy" />
+        <img src={base} alt={baseAlt} width={1024} height={1024} />
         <img
           className="comparison-final"
           style={{ clipPath: `inset(0 ${100 - amount}% 0 0)` }}
@@ -24,7 +22,6 @@ export function PizzaComparison({
           alt={finishedAlt}
           width={1024}
           height={1024}
-          loading="lazy"
         />
         <div className="comparison-divider" style={{ left: `${amount}%` }} aria-hidden="true">
           <MoveHorizontal />
@@ -38,7 +35,7 @@ export function PizzaComparison({
         max={100}
         step={1}
         value={[amount]}
-        onValueChange={values => setAmount(values[0] ?? 50)}
+        onValueChange={(values) => setAmount(values[0] ?? 50)}
         aria-label="Confronta base e pizza finita"
       />
       <div className="comparison-ends">
