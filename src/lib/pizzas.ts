@@ -28,6 +28,8 @@ import gorgonzola_noci from '@/assets/recipe-gorgonzola-noci.jpg';
 import calabrese from '@/assets/recipe-calabrese.jpg';
 import margherita_dop from '@/assets/recipe-margherita-dop.jpg';
 import bianca from '@/assets/recipe-bianca.jpg';
+import parmigiana from '@/assets/recipe-parmigiana.jpg';
+import bresaola from '@/assets/recipe-bresaola.jpg';
 
 export const pizzas = [
   { slug: 'margherita', name: 'Margherita', note: 'Il classico che non ha bisogno di presentazioni.', label: 'L’originale', price: 7.9, image: margherita, toppings: ['Pomodoro', 'Mozzarella', 'Basilico'], category: 'Vegetariane' },
