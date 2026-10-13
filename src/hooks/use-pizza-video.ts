@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function usePizzaVideo({ once = false }: { once?: boolean } = {}) {
+export function usePizzaVideo({ once = true }: { once?: boolean } = {}) {
  const ref = useRef<HTMLVideoElement>(null);
  const attempted = useRef(false);
  const userPaused = useRef(false);
  const [enabled, setEnabled] = useState(false);
  const [playing, setPlaying] = useState(false);
  const [ended, setEnded] = useState(false);
+ const [started, setStarted] = useState(false);
  useEffect(() => {
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
@@ -42,8 +43,8 @@ export function usePizzaVideo({ once = false }: { once?: boolean } = {}) {
  useEffect(() => {
   if (enabled && attempted.current && !userPaused.current && !ended) ref.current?.play().catch(() => setPlaying(false));
  }, [enabled]);
- return { ref, enabled, playing, ended, toggle,
-  onPlay: () => { setPlaying(true); setEnded(false); },
+ return { ref, enabled, playing, ended, started, toggle,
+  onPlay: () => { setPlaying(true); setEnded(false); setStarted(true); },
   onPause: () => setPlaying(false),
   onEnded: () => { setPlaying(false); setEnded(true); },
  };

@@ -49,6 +49,7 @@
 .hero-actions a:hover { transform:translateY(-3px); }
 .hero-edition { position:absolute; bottom:34px; left:calc(5% + 60px); display:flex; flex-direction:column; gap:5px; font-size:9px; font-weight:600; }
 .film-control { position:absolute; left:5%; bottom:30px; width:44px; height:44px; border-radius:50%; background:var(--background); color:var(--foreground); z-index:3; }
+.hero-replay { position:absolute; right:5%; top:24px; z-index:3; min-height:44px; }
 .round-seal { position:absolute; right:5%; bottom:30px; border-radius:50%; width:125px; height:125px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:var(--primary); color:var(--primary-foreground); animation:seal-sway 7s ease-in-out infinite; }
 .round-seal span { font-size:8px; font-weight:600; }
 .round-seal strong { font-size:46px; line-height:1.1; }
@@ -190,6 +191,8 @@ a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
 .oven-copy h2 em { font-style:normal; color:var(--primary); }
 .oven-copy p { font-size:16px; line-height:1.7; max-width:480px; opacity:.92; }
 .oven-toggle { position:absolute; z-index:3; right:5%; bottom:8%; width:56px; height:56px; border-radius:50%; }
+.oven-toggle.oven-replay { width:auto; border-radius:6px; padding:0 18px; }
+@media(max-width:700px) { .hero-replay { top:14px; right:6%; font-size:11px; }.oven-toggle.oven-replay { bottom:20px; height:44px; }.oven-copy { padding-bottom:95px; } }
 /* Pizza showcase — auto-rotating carousel */
 .showcase-stage { position:relative; overflow:hidden; border-radius:8px; background:var(--ink); }
 .showcase-track { display:flex; transition:transform .9s cubic-bezier(.2,.7,.2,1); }

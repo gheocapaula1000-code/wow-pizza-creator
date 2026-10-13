@@ -1,4 +1,6 @@
 # Demo pizza
+- [x] Sostituire tutte le scene di pizza condita nel forno a legna e correggere la cottura finale a tre minuti.
+- [x] Uniformare tutti i filmati all’avvio automatico unico con «Guarda di nuovo» e verificare il percorso.
 - [x] Allungare i filmati di apertura e preparazione e verificare avvio automatico e replay.
 - [x] Aggiungere correlati scorrevoli nelle schede e rinominare la borsa in carrello.
 - [x] Verificare impatto entro otto secondi, navigazione e accessibilità.
