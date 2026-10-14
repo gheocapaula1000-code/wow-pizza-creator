@@ -7,7 +7,9 @@ import { pizzas, euro } from '@/lib/pizzas';
 
 type Bag = Record<string, number>;
 type Store = { bag: Bag; add: (slug: string, quantity?: number) => void; showBag: () => void };
-const StoreContext = createContext<Store | null>(null);
+// Shared on globalThis so hot-reloaded copies of this module reuse one context (prevents "PizzaStoreProvider is required" after edits).
+const g = globalThis as { __pizzaStoreContext?: React.Context<Store | null> };
+const StoreContext = g.__pizzaStoreContext ?? (g.__pizzaStoreContext = createContext<Store | null>(null));
 export function usePizzaStore() {
  const store = useContext(StoreContext);
  if (!store) throw new Error('PizzaStoreProvider is required');
