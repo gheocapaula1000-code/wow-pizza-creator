@@ -134,7 +134,9 @@ function RootComponent() {
 
     const onTouchStart = (e: TouchEvent) => {
       if (window.scrollY === 0) {
-        startY.current = e.touches[0].clientY;
+        const touch = e.touches[0];
+        if (!touch) return;
+        startY.current = touch.clientY;
         pulling.current = true;
         isAtTop = true;
       }
@@ -142,7 +144,9 @@ function RootComponent() {
 
     const onTouchMove = (e: TouchEvent) => {
       if (!pulling.current || !isAtTop) return;
-      const currentY = e.touches[0].clientY;
+      const touch = e.touches[0];
+      if (!touch) return;
+      const currentY = touch.clientY;
       const diff = currentY - startY.current;
       if (diff > threshold && window.scrollY === 0) {
         // Visual feedback optional
@@ -153,7 +157,9 @@ function RootComponent() {
 
     const onTouchEnd = (e: TouchEvent) => {
       if (!pulling.current || !isAtTop) return;
-      const endY = e.changedTouches[0].clientY;
+      const touch = e.changedTouches[0];
+      if (!touch) return;
+      const endY = touch.clientY;
       const diff = endY - startY.current;
       document.body.style.transition = '';
       document.body.style.transform = '';

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
-import { ArrowUpRight, Flame, PackageOpen, Pizza, Volume2, VolumeX } from 'lucide-react';
+import { useEffect } from 'react';
+import { ArrowUpRight, Flame, PackageOpen, Pizza } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PizzaCatalog } from '@/components/pizza-catalog';
 import { PizzaTransformation } from '@/components/pizza-experience';
@@ -8,22 +8,7 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
-import promoWebm from '@/assets/strano-ma-vero-promo-21s.webm.asset.json';
-import promoMp4 from '@/assets/strano-ma-vero-promo-21s.mp4.asset.json';
-import heroLoop from '@/assets/hero-loop-audio.webm.asset.json';
-import { usePizzaVideo } from '@/hooks/use-pizza-video';
-
-/* ─── HERO: punto unico di rientro ───────────────────────────────────────
-   Cambia solo la riga contrassegnata con HERE.
-     HERO_VIDEOS.promo → 21s: il film promozionale, con audio (attuale)
-     HERO_VIDEOS.loop  → 23s con audio: condimenti aggiunti a casa + cheese pull
-     null              → niente video: torna l'immagine statica pizza-editorial.jpg
-   L'immagine resta in ogni caso come poster del video e come immagine di
-   riserva per chi ha "riduci movimento" o "risparmio dati" attivi.        */
-const HERO_VIDEOS = { loop: heroLoop, promo: promoWebm } as const;
-type HeroSource = { url: string } | null;
-const HERO_VIDEO: HeroSource = HERO_VIDEOS.loop; // HERE - force this one
-const HERO_LABEL = 'La base cotta al 90%, i condimenti che cadono, il finale nel forno di casa e il cheese pull';
+import { HeroVideo } from '@/components/hero-video';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
@@ -40,34 +25,10 @@ function Home() {
   document.querySelectorAll('[data-reveal]').forEach(element => observer.observe(element));
   return () => observer.disconnect();
  },[]);
- const { ref, playing, toggle, onPlay, onPause, onEnded } = usePizzaVideo({ maxAutoPlays: Infinity });
- const [muted, setMuted] = useState(true);
- const [needsPlay, setNeedsPlay] = useState(false);
- const toggleSound = () => {
-  const next = !muted;
-  setMuted(next);
-  if (ref.current) ref.current.muted = next;
- };
- // Force play for Hero, ignore reduced motion
- useEffect(() => {
-  const player = ref.current;
-  if (player) {
-   player.muted = true;
-   player.play().catch(() => setNeedsPlay(true));
-  }
- }, []);
- useEffect(() => {
-  if (playing) { setNeedsPlay(false); return; }
-  const timer = setTimeout(() => setNeedsPlay(true), 1500);
-  return () => clearTimeout(timer);
- }, [playing]);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
-   {HERO_VIDEO ? <>
-    <video ref={ref} className="hero-photo hero-film-video" src={HERO_VIDEO.url} poster={hero} autoPlay muted={muted} loop playsInline preload="auto" onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL}/>
-    <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>
-    {needsPlay && <Button className="hero-replay" variant="secondary" onClick={() => { ref.current?.play(); setNeedsPlay(false); }}>Riproduci il video</Button>}
-   </> : <img className="hero-photo" src={hero} alt="Pizza" width={1536} height={1024}/>}
+   <HeroVideo poster={hero}/>
+   {/* Revert: replace HeroVideo above with <img className="hero-photo" src={hero} alt="Pizza" width={1536} height={1024}/> */}
     <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button></div></div>
    <div className="hero-edition"><span>BUONA COME UN’IDEA GENIALE.</span><span>90% NOI. 10% TU.</span></div><div className="round-seal"><span>QUASI PRONTA</span><strong>90%</strong><span>COMPLETAMENTE TUA</span></div>
   </section>

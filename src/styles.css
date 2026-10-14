@@ -32,10 +32,10 @@
 .mobile-menu { display:none; }
 .hero { position:relative; isolation:isolate; overflow:hidden; }
 .cinematic-hero { min-height:550px; height:clamp(550px,calc(100svh - 190px),750px); color:var(--cinema-foreground); }
-.hero-photo,.hero-film { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 53%; z-index:-3; }
-.hero-film { z-index:-2; }
-.cinematic-hero:after { content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,var(--cinema-overlay),transparent 85%),linear-gradient(0deg,var(--cinema-overlay),transparent 40%); }
-.hero-copy { padding:70px 5%; max-width:690px; }
+.hero-photo,.hero-film { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 53%; z-index:0; display:block; opacity:1; visibility:visible; }
+.hero-film { z-index:1; }
+.cinematic-hero:after { content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(90deg,var(--cinema-overlay),transparent 85%),linear-gradient(0deg,var(--cinema-overlay),transparent 40%); }
+.hero-copy { position:relative; z-index:3; padding:70px 5%; max-width:690px; }
 .eyebrow { font-size:10px; font-weight:700; letter-spacing:1.5px; display:flex; align-items:center; gap:12px; }
 .eyebrow:before { content:''; width:24px; height:1px; background:currentColor; }
 .hero h1 { font-size:88px; font-weight:800; line-height:1.02; margin:25px 0; text-shadow:var(--cinema-shadow); }
@@ -47,13 +47,13 @@
 .hero-actions { display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
 .hero-actions a { min-height:48px; transition:transform .2s; }
 .hero-actions a:hover { transform:translateY(-3px); }
-.hero-edition { position:absolute; bottom:34px; left:calc(5% + 60px); display:flex; flex-direction:column; gap:5px; font-size:9px; font-weight:600; }
+.hero-edition { position:absolute; z-index:3; bottom:34px; left:calc(5% + 60px); display:flex; flex-direction:column; gap:5px; font-size:9px; font-weight:600; }
 .film-control { position:absolute; left:5%; bottom:30px; width:44px; height:44px; border-radius:50%; background:var(--background); color:var(--foreground); z-index:3; }
-.hero-replay { position:absolute; right:calc(5% + 56px); top:24px; z-index:3; min-height:44px; }
+.hero-replay { position:absolute; right:calc(5% + 56px); top:24px; z-index:4; min-height:44px; }
 .film-control.film-sound { left:calc(5% + 56px); }
-.hero-sound { position:absolute; right:5%; top:24px; width:44px; height:44px; border-radius:50%; z-index:3; }
+.hero-sound { position:absolute; right:5%; top:24px; width:44px; height:44px; border-radius:50%; z-index:4; }
 @media(max-width:700px) { .hero-sound { top:14px; right:6%; } }
-.round-seal { position:absolute; right:5%; bottom:30px; border-radius:50%; width:125px; height:125px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:var(--primary); color:var(--primary-foreground); animation:seal-sway 7s ease-in-out infinite; }
+.round-seal { position:absolute; z-index:3; right:5%; bottom:30px; border-radius:50%; width:125px; height:125px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:var(--primary); color:var(--primary-foreground); animation:seal-sway 7s ease-in-out infinite; }
 .round-seal span { font-size:8px; font-weight:600; }
 .round-seal strong { font-size:46px; line-height:1.1; }
 .promise-bar { padding:25px 5%; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; border-bottom:1px solid var(--border); }
@@ -198,7 +198,7 @@ a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
 .oven-copy p { font-size:16px; line-height:1.7; max-width:480px; opacity:.92; }
 .oven-toggle { position:absolute; z-index:3; right:5%; bottom:8%; width:56px; height:56px; border-radius:50%; }
 .oven-toggle.oven-replay { width:auto; border-radius:6px; padding:0 18px; }
-@media(max-width:700px) { .hero-replay { top:14px; right:6%; font-size:11px; }.oven-toggle.oven-replay { bottom:20px; height:44px; }.oven-copy { padding-bottom:95px; } }
+@media(max-width:700px) { .hero-replay { top:14px; right:calc(6% + 56px); font-size:11px; }.oven-toggle.oven-replay { bottom:20px; height:44px; }.oven-copy { padding-bottom:95px; } }
 /* Pizza showcase — auto-rotating carousel */
 .showcase-stage { position:relative; overflow:hidden; border-radius:8px; background:var(--ink); }
 .showcase-track { display:flex; transition:transform .9s cubic-bezier(.2,.7,.2,1); }
