@@ -49,7 +49,7 @@
 .hero-actions a:hover { transform:translateY(-3px); }
 .hero-edition { position:absolute; bottom:34px; left:calc(5% + 60px); display:flex; flex-direction:column; gap:5px; font-size:9px; font-weight:600; }
 .film-control { position:absolute; left:5%; bottom:30px; width:44px; height:44px; border-radius:50%; background:var(--background); color:var(--foreground); z-index:3; }
-.hero-replay { position:absolute; right:5%; top:24px; z-index:3; min-height:44px; }
+.hero-replay { position:absolute; right:calc(5% + 56px); top:24px; z-index:3; min-height:44px; }
 .film-control.film-sound { left:calc(5% + 56px); }
 .hero-sound { position:absolute; right:5%; top:24px; width:44px; height:44px; border-radius:50%; z-index:3; }
 @media(max-width:700px) { .hero-sound { top:14px; right:6%; } }
