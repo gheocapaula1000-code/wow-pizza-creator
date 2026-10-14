@@ -15,7 +15,6 @@ import pwaCss from "../styles-pwa.css?url";
 import { PizzaStoreProvider } from "@/components/pizza-store";
 import { touchIconDataUri } from "@/lib/touch-icon";
 import { BottomNav } from "@/components/bottom-nav";
-import { PullToRefresh } from "@/components/pull-to-refresh";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -81,7 +80,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/manifest-v6.json" },
       { rel: "icon", href: "/favicon-v6.png", type: "image/png", sizes: "64x64" },
       { rel: "icon", href: "/favicon-v6.ico", type: "image/x-icon" },
+      // Icon embedded in the page: the phone never has to download it separately.
       { rel: "apple-touch-icon", href: touchIconDataUri, sizes: "180x180" },
+
       { rel: "canonical", href: "https://basexpizza.com" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap" },
     ],
@@ -132,7 +133,6 @@ function RootComponent() {
       <PizzaStoreProvider>
         <Outlet />
         <BottomNav />
-        <PullToRefresh />
       </PizzaStoreProvider>
     </QueryClientProvider>
   );
