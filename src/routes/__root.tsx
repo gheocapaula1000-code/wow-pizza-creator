@@ -16,6 +16,7 @@ import { PizzaStoreProvider } from "@/components/pizza-store";
 import { touchIconDataUri } from "@/lib/touch-icon";
 import { BottomNav } from "@/components/bottom-nav";
 import { PullToRefresh } from "@/components/pull-to-refresh";
+import { CookieBanner } from "@/components/cookie-banner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -135,6 +136,7 @@ function RootComponent() {
         <Outlet />
         <BottomNav />
         <PullToRefresh />
+        <CookieBanner />
       </PizzaStoreProvider>
     </QueryClientProvider>
   );

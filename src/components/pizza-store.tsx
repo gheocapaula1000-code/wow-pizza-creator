@@ -7,7 +7,9 @@ import { pizzas, euro } from '@/lib/pizzas';
 
 type Bag = Record<string, number>;
 type Store = { bag: Bag; add: (slug: string, quantity?: number) => void; showBag: () => void };
-const StoreContext = createContext<Store | null>(null);
+// Shared on globalThis so hot-reloaded copies of this module reuse one context (prevents "PizzaStoreProvider is required" after edits).
+const g = globalThis as { __pizzaStoreContext?: React.Context<Store | null> };
+const StoreContext = g.__pizzaStoreContext ?? (g.__pizzaStoreContext = createContext<Store | null>(null));
 export function usePizzaStore() {
  const store = useContext(StoreContext);
  if (!store) throw new Error('PizzaStoreProvider is required');
@@ -38,7 +40,7 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
    <div className="header-tools"><Button className="mobile-menu" variant="ghost" size="icon" aria-label="Apri menu" onClick={() => setMenu(true)}><Menu/></Button><Button variant="ghost" className="bag-trigger" onClick={() => setOpen(true)} aria-label={`Apri carrello, ${count} pizze`}><ShoppingBag/><span className="bag-label">Il tuo carrello</span><span className="bag-count">{count}</span></Button></div>
   </header>
   {children}
-  <footer className="store-footer"><Link to="/" className="wordmark">STRANO<span>MA VERO!</span></Link><div>La stessa base. Mille voglie diverse.<small>Dimostrazione per il cliente · Prezzi e ricette d’esempio · Nessun ordine o pagamento</small></div><Link to="/pizze">Scegli la tua pizza <ArrowRight size={16}/></Link></footer>
+  <footer className="store-footer"><Link to="/" className="wordmark">STRANO<span>MA VERO!</span></Link><div>La stessa base. Mille voglie diverse.<small>Dimostrazione per il cliente · Prezzi e ricette d’esempio · Nessun ordine o pagamento</small></div><Link to="/pizze">Scegli la tua pizza <ArrowRight size={16}/></Link><div className="footer-legal"><nav aria-label="Pagine legali"><Link to="/privacy-policy">Privacy Policy</Link><Link to="/cookie-policy">Cookie Policy</Link><Link to="/termini-e-condizioni">Termini e Condizioni</Link></nav><small>Strano Ma Vero Di Zoja Manuelito – Via Po 1, 35135 Padova (PD) – P.IVA 02682910282</small></div></footer>
   <div className="sr-only" role="status">{notice}</div>
   {notice && <div className="bag-notice" key={`${notice}-${count}`}><Pizza size={18}/><span>{notice}</span><Button variant="ghost" onClick={() => {setOpen(true);setNotice('');}}>Vedi carrello <ArrowRight/></Button><Button variant="ghost" size="icon" aria-label="Chiudi notifica" onClick={() => setNotice('')}>×</Button></div>}
   <Dialog open={menu} onOpenChange={setMenu}><DialogContent><DialogTitle>Strano Ma Vero!</DialogTitle><DialogDescription>La pizzeria, a casa tua.</DialogDescription><nav className="mobile-nav"><Link to="/pizze" onClick={() => setMenu(false)}>Le nostre pizze <ArrowRight/></Link><Link to="/" hash="il-finale" onClick={() => setMenu(false)}>Dal 90 al 100 <ArrowRight/></Link><Link to="/" hash="film" onClick={() => setMenu(false)}>Guarda il film <ArrowRight/></Link></nav></DialogContent></Dialog>
