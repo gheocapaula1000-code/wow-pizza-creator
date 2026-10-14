@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 function Consumer() {
   const { bag, add, showBag } = usePizzaStore();
-  return <><output>{bag.margherita ?? 0}</output><button onClick={() => add('margherita')}>Add</button><button onClick={showBag}>Open</button></>;
+  return <><output>{bag['margherita'] ?? 0}</output><button onClick={() => add('margherita')}>Add</button><button onClick={showBag}>Open</button></>;
 }
 
 describe('Shared pizza context', () => {
