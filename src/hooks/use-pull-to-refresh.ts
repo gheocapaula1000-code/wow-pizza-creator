@@ -23,7 +23,7 @@ export function usePullToRefresh(onRefresh: () => void) {
       if (refreshing || !touch || event.touches.length !== 1 || window.scrollY > 0) return;
       const target = event.target;
       if (!(target instanceof Element)) return;
-      if (document.querySelector('[role="dialog"][data-state="open"]') || target.closest('button, a, input, textarea, select, video, [role="slider"], [role="dialog"]')) return;
+      if (document.querySelector('[role="dialog"][data-state="open"]') || target.closest('button, a, input, textarea, select, video[controls], [role="slider"], [role="dialog"]')) return;
       // Never take over a scrollable panel's own gesture.
       for (let element: Element | null = target; element && element !== document.body && element !== document.documentElement; element = element.parentElement) {
         const overflow = getComputedStyle(element).overflowY;
