@@ -14,7 +14,7 @@
 - Prebundle React and the used Radix entry points together in Vite optimizeDeps; this prevents late dependency discovery from mixing React hook dispatchers in an open preview.
 
 - Keep generated video pointers in project assets and render decorative footage through PizzaFilm with a poster, playback control, and reduced-motion/data-saving fallback; motion must never block the pizza selection flow.
-- Section videos share viewport-aware playback through usePizzaVideo with first-visit autoplay and explicit replay; the opening HeroVideo independently loops the uploaded process film with MP4 first, positive stacking layers, playback/audio controls and accessibility fallbacks to keep iPhone playback separate from promotional footage.
+- Section videos share viewport-aware playback through usePizzaVideo with first-visit autoplay and explicit replay; the opening HeroVideo independently loops one process film in story order (bare base in the wood oven, toppings, home oven, cheese pull) with MP4 first, shown whole as a 16:9 band above the copy on phones, positive stacking layers, playback/audio controls and accessibility fallbacks to keep iPhone playback separate from promotional footage.
 - Promotional footage preserves its original aspect ratio and audio with muted autoplay and explicit sound controls, so mobile framing and browser playback remain reliable.
 - Related product strips use the shared catalog, exclude the current pizza, and support touch, keyboard, navigation controls and pausing automatic scrolling.
 - Define preset pizza examples in a shared browser-safe catalog and keep the demonstration bag in a root context; product routes and listings must share the same recipe and never create real orders.
