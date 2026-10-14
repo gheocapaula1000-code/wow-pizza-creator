@@ -4,10 +4,6 @@ import { usePullToRefresh } from '@/hooks/use-pull-to-refresh';
 
 afterEach(() => { cleanup(); vi.useRealTimers(); Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 }); });
 
-function touch(type: string, y: number, x = 100, target: Element = document.body) {
-  fireEvent(target, new Event(type, { bubbles: true, cancelable: true, ...{} }));
-}
-
 function gesture(type: string, y: number, x = 100, target: Element = document.body) {
   const event = new Event(type, { bubbles: true, cancelable: true });
   Object.defineProperties(event, {
