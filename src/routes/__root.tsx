@@ -9,6 +9,7 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, useRef, type ReactNode } from "react";
+import { ArrowDown } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import pwaCss from "../styles-pwa.css?url";
@@ -127,47 +128,51 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const startY = useRef(0);
   const pulling = useRef(false);
+  const pulled = useRef(0);
+  const indicator = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const threshold = 80;
-    let isAtTop = false;
-
+    const THRESHOLD = 72;
+    const MAX = 120;
+    const show = (p: number) => {
+      const el = indicator.current;
+      if (!el) return;
+      el.style.opacity = String(Math.min(p / THRESHOLD, 1));
+      el.style.transform = `translateY(${p - 44}px)`;
+      el.dataset['state'] = p >= THRESHOLD ? 'ready' : 'idle';
+    };
     const onTouchStart = (e: TouchEvent) => {
       if (window.scrollY === 0) {
-        startY.current = e.touches[0].clientY;
+        startY.current = e.touches[0]?.clientY ?? 0;
         pulling.current = true;
-        isAtTop = true;
       }
     };
-
     const onTouchMove = (e: TouchEvent) => {
-      if (!pulling.current || !isAtTop) return;
-      const currentY = e.touches[0].clientY;
-      const diff = currentY - startY.current;
-      if (diff > threshold && window.scrollY === 0) {
-        // Visual feedback optional
-        document.body.style.transition = 'transform 0.2s';
-        document.body.style.transform = `translateY(${Math.min(diff / 3, 60)}px)`;
-      }
+      if (!pulling.current) return;
+      const dy = (e.touches[0]?.clientY ?? 0) - startY.current;
+      pulled.current = dy <= 0 ? 0 : Math.min(dy * 0.5, MAX);
+      show(pulled.current);
     };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      if (!pulling.current || !isAtTop) return;
-      const endY = e.changedTouches[0].clientY;
-      const diff = endY - startY.current;
-      document.body.style.transition = '';
-      document.body.style.transform = '';
-      if (diff > threshold && window.scrollY === 0) {
-        window.location.reload();
-      }
+    const onTouchEnd = () => {
+      if (!pulling.current) return;
       pulling.current = false;
-      isAtTop = false;
+      if (pulled.current >= THRESHOLD) {
+        // Ricarica vera della pagina, non solo l'animazione.
+        const el = indicator.current;
+        if (el) {
+          el.dataset['state'] = 'refreshing';
+          el.style.opacity = '1';
+          el.style.transform = `translateY(${THRESHOLD - 44}px)`;
+        }
+        window.location.reload();
+        return;
+      }
+      pulled.current = 0;
+      show(0);
     };
-
     document.addEventListener('touchstart', onTouchStart, { passive: true });
     document.addEventListener('touchmove', onTouchMove, { passive: true });
     document.addEventListener('touchend', onTouchEnd);
-
     return () => {
       document.removeEventListener('touchstart', onTouchStart);
       document.removeEventListener('touchmove', onTouchMove);
@@ -178,6 +183,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <PizzaStoreProvider>
+        <div className="ptr-indicator" ref={indicator} data-state="idle" aria-hidden="true">
+          <ArrowDown className="ptr-arrow" />
+          <span className="ptr-spinner" />
+        </div>
         <Outlet />
         <BottomNav />
       </PizzaStoreProvider>
