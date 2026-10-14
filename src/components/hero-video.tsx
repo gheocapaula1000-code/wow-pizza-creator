@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import mp4 from '@/assets/hero-sequence.mp4.asset.json';
-import webm from '@/assets/hero-sequence.webm.asset.json';
+import mp4 from '@/assets/hero-correct-long.mp4.asset.json';
+import webm from '@/assets/hero-correct-long.webm.asset.json';
 
 // Process film: bare base in the wood oven (90%), toppings, home oven (10%), cheese pull. Keep the promotional film independent.
 export function HeroVideo({ poster }: { poster: string }) {
@@ -81,7 +81,7 @@ export function HeroVideo({ poster }: { poster: string }) {
 
   return <>
     <video ref={ref} className="hero-photo" poster={poster} autoPlay muted={muted} loop playsInline preload="auto"
-      aria-label="La base nuda nel forno a legna, i condimenti che cadono, il forno di casa e il formaggio filante"
+      aria-label="Condimenti sulla base cotta al 90%, forno di casa e formaggio filante"
       onPlay={() => { setPlaying(true); setNeedsPlay(false); }} onPause={() => setPlaying(false)}
       onError={() => setNeedsPlay(true)}>
       <source src={mp4.url} type="video/mp4" />
