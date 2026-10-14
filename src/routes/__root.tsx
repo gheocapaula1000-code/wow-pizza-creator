@@ -8,7 +8,7 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import pwaCss from "../styles-pwa.css?url";
@@ -127,41 +127,36 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const startY = useRef(0);
   const pulling = useRef(false);
+  const [spinner, setSpinner] = useState(false);
 
   useEffect(() => {
-    const threshold = 80;
-    let isAtTop = false;
+    const threshold = 70;
 
     const onTouchStart = (e: TouchEvent) => {
-      if (window.scrollY === 0) {
-        startY.current = (e.touches[0]?.clientY ?? 0);
+      if (window.scrollY <= 0) {
+        startY.current = e.touches[0]?.clientY ?? 0;
         pulling.current = true;
-        isAtTop = true;
       }
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      if (!pulling.current || !isAtTop) return;
-      const currentY = (e.touches[0]?.clientY ?? 0);
+      if (!pulling.current) return;
+      const currentY = e.touches[0]?.clientY ?? 0;
       const diff = currentY - startY.current;
-      if (diff > threshold && window.scrollY === 0) {
-        // Visual feedback optional
-        document.body.style.transition = 'transform 0.2s';
-        document.body.style.transform = `translateY(${Math.min(diff / 3, 60)}px)`;
+      if (diff > 30 && window.scrollY <= 0) {
+        setSpinner(true);
       }
     };
 
     const onTouchEnd = (e: TouchEvent) => {
-      if (!pulling.current || !isAtTop) return;
-      const endY = (e.changedTouches[0]?.clientY ?? 0);
+      if (!pulling.current) return;
+      const endY = e.changedTouches[0]?.clientY ?? 0;
       const diff = endY - startY.current;
-      document.body.style.transition = '';
-      document.body.style.transform = '';
-      if (diff > threshold && window.scrollY === 0) {
+      setSpinner(false);
+      if (diff > threshold && window.scrollY <= 0) {
         window.location.reload();
       }
       pulling.current = false;
-      isAtTop = false;
     };
 
     document.addEventListener('touchstart', onTouchStart, { passive: true });
@@ -178,6 +173,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <PizzaStoreProvider>
+        {spinner && (
+          <div style={{position:'fixed', top:12, left:'50%', transform:'translateX(-50%)', zIndex:9999, background:'rgba(255,255,255,0.9)', borderRadius:20, padding:'6px 12px', boxShadow:'0 2px 8px rgba(0,0,0,0.1)'}}>
+            <div style={{width:16, height:16, border:'2px solid #c45c26', borderTopColor:'transparent', borderRadius:'50%', animation:'spin 0.8s linear infinite'}} />
+          </div>
+        )}
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         <Outlet />
         <BottomNav />
       </PizzaStoreProvider>
