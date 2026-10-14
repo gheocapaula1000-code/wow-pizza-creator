@@ -1,4 +1,6 @@
 # Demo pizza
+- [ ] Ripristinare gli stili mancanti, correggere header e hero mobile e verificare il video corretto.
+- [ ] Verificare catalogo e carrello e richiedere pubblicazione della correzione.
 - [x] Generare 30 fotografie dedicate e coerenti con i condimenti di ciascuna pizza.
 - [x] Collegare le fotografie al catalogo condiviso senza cambiare pagine o slider e verificare catalogo e confronti.
 - [x] Integrare il film promozionale caricato, aggiornare copertina e durata, verificare play, audio, replay e mobile.
