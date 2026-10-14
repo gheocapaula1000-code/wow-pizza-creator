@@ -134,6 +134,7 @@ function RootComponent() {
       <PizzaStoreProvider>
         <Outlet />
         <BottomNav />
+        <PullToRefresh />
       </PizzaStoreProvider>
     </QueryClientProvider>
   );
