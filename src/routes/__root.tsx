@@ -8,13 +8,14 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import pwaCss from "../styles-pwa.css?url";
 import { PizzaStoreProvider } from "@/components/pizza-store";
 import { touchIconDataUri } from "@/lib/touch-icon";
 import { BottomNav } from "@/components/bottom-nav";
+import { PullToRefresh } from "@/components/pull-to-refresh";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -125,61 +126,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const startY = useRef(0);
-  const pulling = useRef(false);
-
-  useEffect(() => {
-    const threshold = 80;
-    let isAtTop = false;
-
-    const onTouchStart = (e: TouchEvent) => {
-      if (window.scrollY === 0) {
-        startY.current = (e.touches[0]?.clientY ?? 0);
-        pulling.current = true;
-        isAtTop = true;
-      }
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (!pulling.current || !isAtTop) return;
-      const currentY = (e.touches[0]?.clientY ?? 0);
-      const diff = currentY - startY.current;
-      if (diff > threshold && window.scrollY === 0) {
-        // Visual feedback optional
-        document.body.style.transition = 'transform 0.2s';
-        document.body.style.transform = `translateY(${Math.min(diff / 3, 60)}px)`;
-      }
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      if (!pulling.current || !isAtTop) return;
-      const endY = (e.changedTouches[0]?.clientY ?? 0);
-      const diff = endY - startY.current;
-      document.body.style.transition = '';
-      document.body.style.transform = '';
-      if (diff > threshold && window.scrollY === 0) {
-        window.location.reload();
-      }
-      pulling.current = false;
-      isAtTop = false;
-    };
-
-    document.addEventListener('touchstart', onTouchStart, { passive: true });
-    document.addEventListener('touchmove', onTouchMove, { passive: true });
-    document.addEventListener('touchend', onTouchEnd);
-
-    return () => {
-      document.removeEventListener('touchstart', onTouchStart);
-      document.removeEventListener('touchmove', onTouchMove);
-      document.removeEventListener('touchend', onTouchEnd);
-    };
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <PizzaStoreProvider>
         <Outlet />
         <BottomNav />
+        <PullToRefresh />
       </PizzaStoreProvider>
     </QueryClientProvider>
   );
