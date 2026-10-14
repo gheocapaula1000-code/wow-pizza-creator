@@ -22,8 +22,7 @@ import { usePizzaVideo } from '@/hooks/use-pizza-video';
    riserva per chi ha "riduci movimento" o "risparmio dati" attivi.        */
 const HERO_VIDEOS = { loop: heroLoop, promo: promoWebm } as const;
 type HeroSource = { url: string } | null;
-const HERO_VIDEO: HeroSource = HERO_VIDEOS.loop; // HERE - switched to the longer one with home finish
-// Testo per chi non vede il video: aggiornalo insieme alla riga HERE.
+const HERO_VIDEO: HeroSource = HERO_VIDEOS.loop; // HERE - force this one
 const HERO_LABEL = 'La base cotta al 90%, i condimenti che cadono, il finale nel forno di casa e il cheese pull';
 
 export const Route = createFileRoute('/')({
@@ -41,7 +40,7 @@ function Home() {
   document.querySelectorAll('[data-reveal]').forEach(element => observer.observe(element));
   return () => observer.disconnect();
  },[]);
- const { ref, enabled, playing, toggle, onPlay, onPause, onEnded } = usePizzaVideo({ maxAutoPlays: 1 });
+ const { ref, playing, toggle, onPlay, onPause, onEnded } = usePizzaVideo({ maxAutoPlays: Infinity });
  const [muted, setMuted] = useState(true);
  const [needsPlay, setNeedsPlay] = useState(false);
  const toggleSound = () => {
@@ -49,27 +48,26 @@ function Home() {
   setMuted(next);
   if (ref.current) ref.current.muted = next;
  };
- useEffect(() => {
-  if (!enabled || playing) { setNeedsPlay(false); return; }
-  const timer = setTimeout(() => setNeedsPlay(true), 1200);
-  return () => clearTimeout(timer);
- }, [enabled, playing]);
+ // Force play for Hero, ignore reduced motion
  useEffect(() => {
   const player = ref.current;
-  if (!player || !enabled) return;
-  const observer = new IntersectionObserver(([entry]) => {
-   if (entry?.isIntersecting && player.paused) player.play().catch(() => setNeedsPlay(true));
-  }, { threshold: .4 });
-  observer.observe(player);
-  return () => observer.disconnect();
- }, [enabled]);
+  if (player) {
+   player.muted = true;
+   player.play().catch(() => setNeedsPlay(true));
+  }
+ }, []);
+ useEffect(() => {
+  if (playing) { setNeedsPlay(false); return; }
+  const timer = setTimeout(() => setNeedsPlay(true), 1500);
+  return () => clearTimeout(timer);
+ }, [playing]);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
    {HERO_VIDEO ? <>
-    <video ref={ref} className="hero-photo hero-film-video" src={enabled ? HERO_VIDEO.url : undefined} poster={hero} muted={muted} loop playsInline preload={enabled ? 'auto' : 'none'} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL}/>
-    {enabled && <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>}
-    {needsPlay && <Button className="hero-replay" variant="secondary" onClick={toggle}>Riproduci il video</Button>}
-   </> : <img className="hero-photo" src={hero} alt="Pizza Diavola con salame piccante e mozzarella, esempio del risultato finale" width={1536} height={1024}/>}
+    <video ref={ref} className="hero-photo hero-film-video" src={HERO_VIDEO.url} poster={hero} autoPlay muted={muted} loop playsInline preload="auto" onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL}/>
+    <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>
+    {needsPlay && <Button className="hero-replay" variant="secondary" onClick={() => { ref.current?.play(); setNeedsPlay(false); }}>Riproduci il video</Button>}
+   </> : <img className="hero-photo" src={hero} alt="Pizza" width={1536} height={1024}/>}
     <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button></div></div>
    <div className="hero-edition"><span>BUONA COME UN’IDEA GENIALE.</span><span>90% NOI. 10% TU.</span></div><div className="round-seal"><span>QUASI PRONTA</span><strong>90%</strong><span>COMPLETAMENTE TUA</span></div>
   </section>
@@ -80,6 +78,6 @@ function Home() {
   <PizzaTransformation/>
   <PromoFilm/>
   <section className="method-section section-space" data-reveal><div className="section-heading"><div><div className="eyebrow">TRE GESTI. UNA GRANDE SERATA.</div><h2>Il resto è<br/><em>solo appetito.</em></h2></div><p>La ricetta arriva già pensata.<br/>Il piacere di finirla è tutto tuo.</p></div><div className="method-grid">{[{title:'Scegli un classico.',copy:'Ogni articolo ha la stessa base e i condimenti preconfezionati della sua ricetta.',icon:Pizza},{title:'Dai il tuo tocco.',copy:'Apri i condimenti della pizza scelta e distribuiscili sulla base precotta al 90%.',icon:PackageOpen},{title:'Completa. Assapora.',copy:'Completa la pizza con gli ultimi 3 minuti nel tuo forno di casa.',icon:Flame}].map((step,i)=><div className="method-step" key={step.title}><span>0{i+1}</span><step.icon/><h3>{step.title}</h3><p>{step.copy}</p></div>)}</div></section>
-  <section className="closing-band" data-reveal><img className="closing-photo" src={finale} alt="Pizza Diavola finita sul tavolo, una fetta sollevata con il filante della mozzarella" width={1536} height={1024} loading="lazy"/><div className="closing-copy"><span>LA SERATA È TUA.</span><h2>Falla <em>buona.</em></h2><p>Una base, quattro classici, il tuo forno. Il resto è già sulla tavola.</p><Button asChild variant="secondary" size="lg"><Link to="/pizze">Scegli le tue pizze <ArrowUpRight/></Link></Button></div></section>
+  <section className="closing-band" data-reveal><img className="closing-photo" src={finale} alt="Pizza Diavola finita sul tavolo" width={1536} height={1024} loading="lazy"/><div className="closing-copy"><span>LA SERATA È TUA.</span><h2>Falla <em>buona.</em></h2><p>Una base, quattro classici, il tuo forno. Il resto è già sulla tavola.</p><Button asChild variant="secondary" size="lg"><Link to="/pizze">Scegli le tue pizze <ArrowUpRight/></Link></Button></div></section>
  </main>;
 }
