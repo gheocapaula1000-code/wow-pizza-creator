@@ -15,14 +15,16 @@ import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 /* ─── HERO: punto unico di rientro ───────────────────────────────────────
    Cambia solo la riga contrassegnata con HERE.
-     HERO_VIDEOS.loop  → 23s con audio: condimenti aggiunti a casa + cheese pull (attuale)
-     HERO_VIDEOS.promo → 21s: il film promozionale
+     HERO_VIDEOS.promo → 21s: il film promozionale, con audio (attuale)
+     HERO_VIDEOS.loop  → 23s con audio: condimenti aggiunti a casa + cheese pull
      null              → niente video: torna l'immagine statica pizza-editorial.jpg
    L'immagine resta in ogni caso come poster del video e come immagine di
    riserva per chi ha "riduci movimento" o "risparmio dati" attivi.        */
 const HERO_VIDEOS = { loop: heroLoop, promo: promoWebm } as const;
 type HeroSource = { url: string } | null;
-const HERO_VIDEO: HeroSource = HERO_VIDEOS.loop; // HERE
+const HERO_VIDEO: HeroSource = HERO_VIDEOS.promo; // HERE
+// Testo per chi non vede il video: aggiornalo insieme alla riga HERE.
+const HERO_LABEL = 'Il film promozionale: la base cotta al 90%, i condimenti aggiunti a casa e la pizza finita a tavola';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
@@ -66,7 +68,7 @@ function Home() {
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
    {HERO_VIDEO ? <>
-    <video ref={ref} className="hero-photo hero-film-video" src={enabled ? HERO_VIDEO.url : undefined} poster={hero} muted={muted} loop playsInline preload={enabled ? 'auto' : 'none'} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label="Il processo completo: base cotta al 90%, condimenti aggiunti a casa e cottura finale nel forno di casa"/>
+    <video ref={ref} className="hero-photo hero-film-video" src={enabled ? HERO_VIDEO.url : undefined} poster={hero} muted={muted} loop playsInline preload={enabled ? 'auto' : 'none'} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL}/>
     {enabled && <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>}
     {needsPlay && <Button className="hero-replay" variant="secondary" onClick={toggle}>Riproduci il video</Button>}
    </> : <img className="hero-photo" src={hero} alt="Pizza Diavola con salame piccante e mozzarella, esempio del risultato finale" width={1536} height={1024}/>}
