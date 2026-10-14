@@ -85,3 +85,40 @@
     padding-bottom: 80px;
   }
 }
+
+/* Pull-to-refresh: indicatore e disattivazione del gesto nativo del browser */
+html {
+  overscroll-behavior-y: contain;
+}
+.ptr-indicator {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  z-index: 90;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--background, #fff);
+  color: var(--primary);
+  border: 1px solid color-mix(in oklab, var(--foreground, #000) 12%, transparent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.ptr-arrow {
+  display: inline-flex;
+  will-change: transform;
+}
+.ptr-spinner {
+  display: inline-flex;
+  color: var(--primary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ptr-indicator,
+  .ptr-arrow {
+    transition: none !important;
+  }
+}
