@@ -15,6 +15,7 @@ import pwaCss from "../styles-pwa.css?url";
 import { PizzaStoreProvider } from "@/components/pizza-store";
 import { touchIconDataUri } from "@/lib/touch-icon";
 import { BottomNav } from "@/components/bottom-nav";
+import { PullToRefresh } from "@/components/pull-to-refresh";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
