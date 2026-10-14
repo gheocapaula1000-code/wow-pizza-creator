@@ -8,7 +8,8 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
-import heroFilm from '@/assets/hero-long.webm.asset.json';
+import promoWebm from '@/assets/strano-ma-vero-promo-21s.webm.asset.json';
+import promoMp4 from '@/assets/strano-ma-vero-promo-21s.mp4.asset.json';
 import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 export const Route = createFileRoute('/')({
