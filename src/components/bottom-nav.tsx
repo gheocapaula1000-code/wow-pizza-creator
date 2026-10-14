@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Home, Pizza, Play, ShoppingBag } from 'lucide-react';
-import { usePizzaStore } from '@/components/pizza-store';
+import { usePizzaStore } from '@/components/pizza-store-context';
 import { Button } from '@/components/ui/button';
 
 export function BottomNav() {

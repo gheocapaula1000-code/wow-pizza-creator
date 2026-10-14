@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Minus, Plus, PackageOpen, Flame } from 'lucide-react';
 import { pizzas, euro } from '@/lib/pizzas';
-import { usePizzaStore } from '@/components/pizza-store';
+import { usePizzaStore } from '@/components/pizza-store-context';
 import { Button } from '@/components/ui/button';
 import base from '@/assets/pizza-base.jpg';
 import { RelatedPizzas } from '@/components/related-pizzas';

@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { ArrowUpRight, Plus, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { pizzas, euro } from '@/lib/pizzas';
-import { usePizzaStore } from '@/components/pizza-store';
+import { usePizzaStore } from '@/components/pizza-store-context';
 
 export function PizzaCatalog() {
  const [filter,setFilter] = useState('Tutte');
