@@ -8,9 +8,6 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
-import { HeroVideo } from '@/components/hero-video';
-// To restore the static opening photo, replace HeroVideo with:
-// <img className="hero-photo" src={hero} alt="" />
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
@@ -29,7 +26,7 @@ function Home() {
  },[]);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
-   <HeroVideo poster={hero}/>
+   <img className="hero-photo" src={hero} alt="" />
     <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button></div></div>
    <div className="hero-edition"><span>BUONA COME UN’IDEA GENIALE.</span><span>90% NOI. 10% TU.</span></div><div className="round-seal"><span>QUASI PRONTA</span><strong>90%</strong><span>COMPLETAMENTE TUA</span></div>
   </section>
