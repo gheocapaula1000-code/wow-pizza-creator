@@ -8,32 +8,21 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
-import promoWebm from '@/assets/strano-ma-vero-promo-21s.webm.asset.json';
-import promoMp4 from '@/assets/strano-ma-vero-promo-21s.mp4.asset.json';
-import heroLoop from '@/assets/hero-loop-audio.webm.asset.json';
 import heroCorrectWebm from '@/assets/hero-correct-long.webm.asset.json';
 import heroCorrectMp4 from '@/assets/hero-correct-long.mp4.asset.json';
 import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 /* ─── HERO: punto unico di rientro ───────────────────────────────────────
    Cambia solo la riga contrassegnata con HERE.
-     HERO_VIDEOS.correct → 12s (attuale): la base al 90%, i condimenti che
-                           cadono, il forno di casa per l'ultimo 10%, il
-                           formaggio che fila. Con audio.
-     HERO_VIDEOS.promo   → 21s: il film promozionale, con audio
-     HERO_VIDEOS.loop    → 23s con audio: condimenti aggiunti a casa + cheese pull
+     Il film da 12s che hai fornito tu: la base al 90% coi condimenti che cadono,
+     il forno di casa per l'ultimo 10%, il formaggio che fila. Con audio.
      null                → niente video: torna l'immagine statica pizza-editorial.jpg
    Ogni video ha un mp4 di riserva per i navigatori che non aprono il webm.
    L'immagine resta in ogni caso come poster del video e come immagine di
    riserva per chi ha "riduci movimento" o "risparmio dati" attivi.        */
 type HeroClip = { webm: { url: string }; mp4: { url: string } | null };
 type HeroSource = HeroClip | null;
-const HERO_VIDEOS: Record<'correct' | 'promo' | 'loop', HeroClip> = {
-  correct: { webm: heroCorrectWebm, mp4: heroCorrectMp4 },
-  promo: { webm: promoWebm, mp4: promoMp4 },
-  loop: { webm: heroLoop, mp4: null },
-};
-const HERO_VIDEO: HeroSource = HERO_VIDEOS.correct; // HERE
+const HERO_VIDEO: HeroSource = { webm: heroCorrectWebm, mp4: heroCorrectMp4 }; // HERE
 // Testo per chi non vede il video: aggiornalo insieme alla riga HERE.
 const HERO_LABEL = 'La base cotta al 90%, i condimenti che cadono sulla pizza, gli ultimi 10% nel forno di casa e il formaggio che fila';
 
