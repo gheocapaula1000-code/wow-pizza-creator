@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as PizzeRouteImport } from './routes/pizze'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as TerminiECondizioniRouteImport } from './routes/termini-e-condizioni'
 import { Route as PizzaSlugRouteImport } from './routes/pizza.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +21,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiePolicyRoute = CookiePolicyRouteImport.update({
+  id: '/cookie-policy',
+  path: '/cookie-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PizzeRoute = PizzeRouteImport.update({
   id: '/pizze',
   path: '/pizze',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TerminiECondizioniRoute = TerminiECondizioniRouteImport.update({
+  id: '/termini-e-condizioni',
+  path: '/termini-e-condizioni',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PizzaSlugRoute = PizzaSlugRouteImport.update({
@@ -31,31 +49,62 @@ const PizzaSlugRoute = PizzaSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/pizze': typeof PizzeRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/termini-e-condizioni': typeof TerminiECondizioniRoute
   '/pizza/$slug': typeof PizzaSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/pizze': typeof PizzeRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/termini-e-condizioni': typeof TerminiECondizioniRoute
   '/pizza/$slug': typeof PizzaSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/pizze': typeof PizzeRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/termini-e-condizioni': typeof TerminiECondizioniRoute
   '/pizza/$slug': typeof PizzaSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pizze' | '/pizza/$slug'
+  fullPaths:
+    | '/'
+    | '/cookie-policy'
+    | '/pizze'
+    | '/privacy-policy'
+    | '/termini-e-condizioni'
+    | '/pizza/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pizze' | '/pizza/$slug'
-  id: '__root__' | '/' | '/pizze' | '/pizza/$slug'
+  to:
+    | '/'
+    | '/cookie-policy'
+    | '/pizze'
+    | '/privacy-policy'
+    | '/termini-e-condizioni'
+    | '/pizza/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/cookie-policy'
+    | '/pizze'
+    | '/privacy-policy'
+    | '/termini-e-condizioni'
+    | '/pizza/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CookiePolicyRoute: typeof CookiePolicyRoute
   PizzeRoute: typeof PizzeRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  TerminiECondizioniRoute: typeof TerminiECondizioniRoute
   PizzaSlugRoute: typeof PizzaSlugRoute
 }
 
@@ -68,11 +117,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookie-policy': {
+      id: '/cookie-policy'
+      path: '/cookie-policy'
+      fullPath: '/cookie-policy'
+      preLoaderRoute: typeof CookiePolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pizze': {
       id: '/pizze'
       path: '/pizze'
       fullPath: '/pizze'
       preLoaderRoute: typeof PizzeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/termini-e-condizioni': {
+      id: '/termini-e-condizioni'
+      path: '/termini-e-condizioni'
+      fullPath: '/termini-e-condizioni'
+      preLoaderRoute: typeof TerminiECondizioniRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pizza/$slug': {
@@ -87,7 +157,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CookiePolicyRoute: CookiePolicyRoute,
   PizzeRoute: PizzeRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  TerminiECondizioniRoute: TerminiECondizioniRoute,
   PizzaSlugRoute: PizzaSlugRoute,
 }
 export const routeTree = rootRouteImport
