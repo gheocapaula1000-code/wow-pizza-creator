@@ -1,5 +1,5 @@
 # Demo pizza
-- [ ] Correggere sorgenti e visibilità del video hero su mobile, verificare autoplay/audio/loop e richiedere pubblicazione.
+- [x] Correggere sorgenti e visibilità del video hero su mobile, verificare autoplay/audio/loop e richiedere pubblicazione.
 - [x] Generare 30 fotografie dedicate e coerenti con i condimenti di ciascuna pizza.
 - [x] Collegare le fotografie al catalogo condiviso senza cambiare pagine o slider e verificare catalogo e confronti.
 - [x] Integrare il film promozionale caricato, aggiornare copertina e durata, verificare play, audio, replay e mobile.
