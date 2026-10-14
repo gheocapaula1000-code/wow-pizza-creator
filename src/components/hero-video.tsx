@@ -23,7 +23,7 @@ export function HeroVideo({ poster }: { poster: string }) {
   player.defaultMuted = true;
   player.muted = true;
   // MP4 is the primary source on Safari/iOS; WebM is only a decoder fallback.
-  if (!player.canPlayType('video/mp4')) setSrc(webm.url);
+  if (!player.canPlayType('video/mp4; codecs="avc1.64001F"')) setSrc(webm.url);
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const allowed = !motion.matches && !connection?.saveData;
