@@ -35,7 +35,7 @@ export function PullToRefresh() {
     const onTouchStart = (e: TouchEvent) => {
       if (refreshing) return;
       if (window.scrollY > 0) return;
-      startY = e.touches[0].clientY;
+      startY = e.touches[0]?.clientY ?? 0;
       pulling = true;
       pull = 0;
       indicator.style.transition = "none";
@@ -49,7 +49,7 @@ export function PullToRefresh() {
         setIndicator(0, 0);
         return;
       }
-      const dy = e.touches[0].clientY - startY;
+      const dy = (e.touches[0]?.clientY ?? 0) - startY;
       if (dy <= 0) {
         pull = 0;
         setIndicator(0, 0);
