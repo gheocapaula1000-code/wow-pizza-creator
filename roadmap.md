@@ -19,4 +19,4 @@
 - [x] Uniformare il caricamento di React e verificare pagina, ingredienti e riepilogo senza errori nella nuova sessione.
 - [x] Rinominare la demo Strano Ma Vero! ed eliminare Kit dai testi.
 - [x] Integrare un video della pizza e rafforzare animazioni e presentazione.
-- [x] Verificare interazioni e video, e fornire una stima indicativa dei crediti (non un consuntivo; generazione video variabile).
+- [x] Verificare interazioni e video, e fornire una stima indicativa dei crediti (non un consuntivo; generazione video variabile).- [x] Sostituire limmagine statica della hero con un video in loop: film promozionale da 21 secondi con audio attivabile, tasto Guarda il film rimosso, rientro su una sola riga.
