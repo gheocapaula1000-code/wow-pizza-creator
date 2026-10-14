@@ -22,12 +22,14 @@ export function HeroVideo({ poster }: { poster: string }) {
   if (!player) return;
   player.defaultMuted = true;
   player.muted = true;
-  if (!player.canPlayType('video/mp4; codecs="avc1.42E01E"')) setSrc(webm.url);
+  // MP4 is the primary source on Safari/iOS; WebM is only a decoder fallback.
+  if (!player.canPlayType('video/mp4')) setSrc(webm.url);
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const allowed = !motion.matches && !connection?.saveData;
   setAutomatic(allowed);
   if (!allowed) { player.pause(); setNeedsPlay(true); }
+  else play(); // Start immediately, without waiting for viewport observation.
   const observer = new IntersectionObserver(([entry]) => {
    if (!entry?.isIntersecting || document.hidden) { player.pause(); return; }
    if (allowed) play();
