@@ -269,3 +269,11 @@ a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
  .bag-dialog { max-height:calc(100dvh - 48px); overflow-y:auto; }
 }
 @media(max-width:374px) { .hero h1 { font-size:46px; } .hero-copy p { font-size:14px; } .product-card h3 { overflow-wrap:anywhere; } }
+/* Mobile hero: fits the screen, video always covers, copy stays readable */
+.cinematic-hero { width:100%; max-width:100vw; }
+@media(max-width:700px) {
+ .cinematic-hero { min-height:clamp(540px, calc(100svh - 110px), 680px); height:auto; }
+ .cinematic-hero .hero-photo { width:100%; height:100%; max-width:none; object-fit:cover; object-position:center 55%; }
+ .hero-copy { padding:68px 6% 136px; max-width:100%; }
+ .hero-copy p { text-shadow:var(--cinema-shadow); }
+}
