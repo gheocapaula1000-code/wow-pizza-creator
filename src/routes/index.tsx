@@ -10,7 +10,8 @@ import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
 import promoWebm from '@/assets/strano-ma-vero-promo-21s.webm.asset.json';
 import promoMp4 from '@/assets/strano-ma-vero-promo-21s.mp4.asset.json';
-import heroLoop from '@/assets/hero-loop-audio.webm.asset.json';
+import heroCorrectWebm from '@/assets/hero-correct-long.webm.asset.json';
+import heroCorrectMp4 from '@/assets/hero-correct-long.mp4.asset.json';
 import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 /* ─── HERO: punto unico di rientro ───────────────────────────────────────
@@ -20,9 +21,9 @@ import { usePizzaVideo } from '@/hooks/use-pizza-video';
      null              → niente video: torna l'immagine statica pizza-editorial.jpg
    L'immagine resta in ogni caso come poster del video e come immagine di
    riserva per chi ha "riduci movimento" o "risparmio dati" attivi.        */
-const HERO_VIDEOS = { loop: heroLoop, promo: promoWebm } as const;
-type HeroSource = { url: string } | null;
-const HERO_VIDEO: HeroSource = HERO_VIDEOS.loop; // HERE - switched to the longer one with home finish
+type HeroClip = { webm: { url: string }; mp4: { url: string } };
+const HERO_VIDEOS: Record<'correct' | 'promo', HeroClip> = { correct: { webm: heroCorrectWebm, mp4: heroCorrectMp4 }, promo: { webm: promoWebm, mp4: promoMp4 } };
+const HERO_VIDEO: HeroClip | null = HERO_VIDEOS.correct; // HERE
 // Testo per chi non vede il video: aggiornalo insieme alla riga HERE.
 const HERO_LABEL = 'La base cotta al 90%, i condimenti che cadono, il finale nel forno di casa e il cheese pull';
 
@@ -50,24 +51,29 @@ function Home() {
   if (ref.current) ref.current.muted = next;
  };
  useEffect(() => {
-  if (!enabled || playing) { setNeedsPlay(false); return; }
+  if (playing) { setNeedsPlay(false); return; }
   const timer = setTimeout(() => setNeedsPlay(true), 1200);
   return () => clearTimeout(timer);
- }, [enabled, playing]);
+ }, [playing]);
  useEffect(() => {
   const player = ref.current;
-  if (!player || !enabled) return;
+  if (!player) return;
+  player.muted = true;
+  player.play().catch(() => setNeedsPlay(true));
   const observer = new IntersectionObserver(([entry]) => {
    if (entry?.isIntersecting && player.paused) player.play().catch(() => setNeedsPlay(true));
   }, { threshold: .4 });
   observer.observe(player);
   return () => observer.disconnect();
- }, [enabled]);
+ }, []);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
    {HERO_VIDEO ? <>
-    <video ref={ref} className="hero-photo hero-film-video" src={enabled ? HERO_VIDEO.url : undefined} poster={hero} muted={muted} loop playsInline preload={enabled ? 'auto' : 'none'} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL}/>
-    {enabled && <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>}
+    <video ref={ref} className="hero-photo hero-film-video" poster={hero} autoPlay muted={muted} loop playsInline preload="auto" onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL}>
+     <source src={HERO_VIDEO.mp4.url} type="video/mp4"/>
+     <source src={HERO_VIDEO.webm.url} type="video/webm"/>
+    </video>
+    {<Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>}
     {needsPlay && <Button className="hero-replay" variant="secondary" onClick={toggle}>Riproduci il video</Button>}
    </> : <img className="hero-photo" src={hero} alt="Pizza Diavola con salame piccante e mozzarella, esempio del risultato finale" width={1536} height={1024}/>}
     <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button></div></div>
