@@ -19,6 +19,7 @@
 - Related product strips use the shared catalog, exclude the current pizza, and support touch, keyboard, navigation controls and pausing automatic scrolling.
 - Define preset pizza examples in a shared browser-safe catalog and keep the demonstration bag in a root context; product routes and listings must share the same recipe and never create real orders.
 - Keep the store context and consumer hook in pizza-store-context, separate from the refreshable provider component, so live preview updates cannot split provider/consumer context identities.
+- Mount PullToRefresh once in the root using usePullToRefresh for touch-only top-of-page gestures and a fixed indicator; reload the page on release without transforming the body or interfering with dialogs and nested scrolling.
 - Give the catalog and every product detail page route-specific metadata without publishing fictional stock, reviews, or live Offer schema; the concept's example prices are not real commerce data.
 - Generate every browser and manifest PNG icon with `python3 scripts/build-icons.py` (never hand-edit the PNGs) and keep every referenced icon file present; maskable icons need safe-area padding to avoid cropping the mark.
 - Keep a version marker on every icon and manifest file reference (favicon, manifest icons); phones cache icons per URL forever, so bump the marker in the file name (never a ?query string) whenever the artwork changes.

@@ -1,4 +1,5 @@
 # Demo pizza
+- [x] Ripristinare pull-to-refresh touch con indicatore fisso e verificare ricaricamento reale; pubblicazione pronta da richiedere.
 - [x] Isolare il contesto del carrello dagli aggiornamenti dell’anteprima e verificare che non ricompaia la schermata vuota.
 - [x] Ripristinare gli stili mancanti, correggere header e hero mobile e verificare il video corretto.
 - [x] Verificare catalogo e carrello e richiedere pubblicazione della correzione.
