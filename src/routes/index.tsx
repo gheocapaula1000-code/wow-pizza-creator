@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useEffect } from 'react';
-import { ArrowUpRight, ArrowRight, Flame, PackageOpen, Pizza } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowUpRight, Flame, PackageOpen, Pizza, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PizzaCatalog } from '@/components/pizza-catalog';
 import { PizzaTransformation } from '@/components/pizza-experience';
@@ -8,6 +8,8 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
+import heroFilm from '@/assets/hero-long.webm.asset.json';
+import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
@@ -24,10 +26,22 @@ function Home() {
   document.querySelectorAll('[data-reveal]').forEach(element => observer.observe(element));
   return () => observer.disconnect();
  },[]);
+ const { ref, enabled, playing, toggle, onPlay, onPause, onEnded } = usePizzaVideo({ maxAutoPlays: 1 });
+ const [muted, setMuted] = useState(true);
+ const toggleSound = () => {
+  const next = !muted;
+  setMuted(next);
+  if (ref.current) ref.current.muted = next;
+ };
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
+   {/* Fallback/reversible: l'immagine statica originale resta come poster e per reduced-motion/save-data
    <img className="hero-photo" src={hero} alt="Pizza Diavola con salame piccante e mozzarella, esempio del risultato finale" width={1536} height={1024}/>
-    <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button><Button variant="secondary" asChild><a href="#film">Guarda il film <ArrowRight/></a></Button></div></div>
+   */}
+   <video ref={ref} className="hero-photo hero-film-video" src={enabled ? heroFilm.url : undefined} poster={hero} muted={muted} playsInline preload={enabled ? 'auto' : 'none'} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label="Il processo completo: base cotta al 90%, condimenti aggiunti a casa e cottura finale nel forno di casa"/>
+   {enabled && <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>}
+   {!playing && enabled && <Button className="hero-replay" variant="secondary" onClick={toggle}>Rivedi il video</Button>}
+    <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button></div></div>
    <div className="hero-edition"><span>BUONA COME UN’IDEA GENIALE.</span><span>90% NOI. 10% TU.</span></div><div className="round-seal"><span>QUASI PRONTA</span><strong>90%</strong><span>COMPLETAMENTE TUA</span></div>
   </section>
   <div className="promise-bar"><div><Pizza/><span>Una base, sempre la stessa</span></div><div><PackageOpen/><span>Condimenti pronti per ogni ricetta</span></div><div><Flame/><span>Il finale nel tuo forno</span></div></div>
