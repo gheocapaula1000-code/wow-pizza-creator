@@ -25,12 +25,7 @@ import { usePizzaVideo } from '@/hooks/use-pizza-video';
    riserva per chi ha "riduci movimento" o "risparmio dati" attivi.        */
 type HeroClip = { webm: { url: string }; mp4: { url: string } | null };
 type HeroSource = HeroClip | null;
-const HERO_VIDEOS: Record<'correct' | 'promo' | 'loop', HeroClip> = {
-  correct: { webm: heroCorrectWebm, mp4: heroCorrectMp4 },
-  promo: { webm: promoWebm, mp4: promoMp4 },
-  loop: { webm: heroLoop, mp4: null },
-};
-const HERO_VIDEO: HeroSource = HERO_VIDEOS.correct; // HERE
+const HERO_VIDEO: HeroSource = { webm: heroCorrectWebm, mp4: heroCorrectMp4 }; // HERE
 // Testo per chi non vede il video: aggiornalo insieme alla riga HERE.
 const HERO_LABEL = 'La base cotta al 90%, i condimenti che cadono sulla pizza, gli ultimi 10% nel forno di casa e il formaggio che fila';
 
