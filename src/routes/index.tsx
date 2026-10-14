@@ -8,7 +8,8 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
-import heroFilm from '@/assets/hero-long.webm.asset.json';
+import promoWebm from '@/assets/strano-ma-vero-promo-21s.webm.asset.json';
+import promoMp4 from '@/assets/strano-ma-vero-promo-21s.mp4.asset.json';
 import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 export const Route = createFileRoute('/')({
@@ -38,7 +39,7 @@ function Home() {
    {/* Fallback/reversible: l'immagine statica originale resta come poster e per reduced-motion/save-data
    <img className="hero-photo" src={hero} alt="Pizza Diavola con salame piccante e mozzarella, esempio del risultato finale" width={1536} height={1024}/>
    */}
-   <video ref={ref} className="hero-photo hero-film-video" src={enabled ? heroFilm.url : undefined} poster={hero} muted={muted} playsInline preload={enabled ? 'auto' : 'none'} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label="Il processo completo: base cotta al 90%, condimenti aggiunti a casa e cottura finale nel forno di casa"/>
+   <video ref={ref} className="hero-photo hero-film-video" src={enabled ? promoWebm.url : undefined} poster={hero} muted={muted} loop playsInline preload={enabled ? 'auto' : 'none'} onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label="Il processo completo: base cotta al 90%, condimenti aggiunti a casa e cottura finale nel forno di casa"/>
    {enabled && <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>}
    {!playing && enabled && <Button className="hero-replay" variant="secondary" onClick={toggle}>Rivedi il video</Button>}
     <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button></div></div>
