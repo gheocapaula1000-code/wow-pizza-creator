@@ -49,9 +49,9 @@
 .hero-actions a:hover { transform:translateY(-3px); }
 .hero-edition { position:absolute; z-index:3; bottom:34px; left:calc(5% + 60px); display:flex; flex-direction:column; gap:5px; font-size:9px; font-weight:600; }
 .film-control { position:absolute; left:5%; bottom:30px; width:44px; height:44px; border-radius:50%; background:var(--background); color:var(--foreground); z-index:3; }
-.hero-replay { position:absolute; right:calc(5% + 56px); top:24px; z-index:3; min-height:44px; }
+.hero-replay { position:absolute; right:calc(5% + 56px); top:24px; z-index:4; min-height:44px; }
 .film-control.film-sound { left:calc(5% + 56px); }
-.hero-sound { position:absolute; right:5%; top:24px; width:44px; height:44px; border-radius:50%; z-index:3; }
+.hero-sound { position:absolute; right:5%; top:24px; width:44px; height:44px; border-radius:50%; z-index:4; }
 @media(max-width:700px) { .hero-sound { top:14px; right:6%; } }
 .round-seal { position:absolute; z-index:3; right:5%; bottom:30px; border-radius:50%; width:125px; height:125px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:var(--primary); color:var(--primary-foreground); animation:seal-sway 7s ease-in-out infinite; }
 .round-seal span { font-size:8px; font-weight:600; }
