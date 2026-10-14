@@ -139,7 +139,7 @@ function RootComponent() {
       if (!el) return;
       el.style.opacity = String(Math.min(p / THRESHOLD, 1));
       el.style.transform = `translateY(${p - 44}px)`;
-      el.dataset.state = p >= THRESHOLD ? 'ready' : 'idle';
+      el.dataset['state'] = p >= THRESHOLD ? 'ready' : 'idle';
     };
     const onTouchStart = (e: TouchEvent) => {
       if (window.scrollY === 0) {
@@ -160,7 +160,7 @@ function RootComponent() {
         // Ricarica vera della pagina, non solo l'animazione.
         const el = indicator.current;
         if (el) {
-          el.dataset.state = 'refreshing';
+          el.dataset['state'] = 'refreshing';
           el.style.opacity = '1';
           el.style.transform = `translateY(${THRESHOLD - 44}px)`;
         }
