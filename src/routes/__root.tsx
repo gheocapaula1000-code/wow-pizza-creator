@@ -8,7 +8,7 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import pwaCss from "../styles-pwa.css?url";
@@ -80,9 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/manifest-v6.json" },
       { rel: "icon", href: "/favicon-v6.png", type: "image/png", sizes: "64x64" },
       { rel: "icon", href: "/favicon-v6.ico", type: "image/x-icon" },
-      // Icon embedded in the page: the phone never has to download it separately.
       { rel: "apple-touch-icon", href: touchIconDataUri, sizes: "180x180" },
-
       { rel: "canonical", href: "https://basexpizza.com" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap" },
     ],
@@ -127,6 +125,55 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const startY = useRef(0);
+  const pulling = useRef(false);
+
+  useEffect(() => {
+    const threshold = 80;
+    let isAtTop = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (window.scrollY === 0) {
+        startY.current = e.touches[0].clientY;
+        pulling.current = true;
+        isAtTop = true;
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!pulling.current || !isAtTop) return;
+      const currentY = e.touches[0].clientY;
+      const diff = currentY - startY.current;
+      if (diff > threshold && window.scrollY === 0) {
+        // Visual feedback optional
+        document.body.style.transition = 'transform 0.2s';
+        document.body.style.transform = `translateY(${Math.min(diff / 3, 60)}px)`;
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!pulling.current || !isAtTop) return;
+      const endY = e.changedTouches[0].clientY;
+      const diff = endY - startY.current;
+      document.body.style.transition = '';
+      document.body.style.transform = '';
+      if (diff > threshold && window.scrollY === 0) {
+        window.location.reload();
+      }
+      pulling.current = false;
+      isAtTop = false;
+    };
+
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
+    document.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
