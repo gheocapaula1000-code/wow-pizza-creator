@@ -50,11 +50,9 @@ function Home() {
   }
  }, []);
  useEffect(() => {
-  if (playing) setNeedsPlay(false);
-  else {
-   const timer = setTimeout(() => setNeedsPlay(true), 2000);
-   return () => clearTimeout(timer);
-  }
+  if (playing) { setNeedsPlay(false); return undefined; }
+  const timer = setTimeout(() => setNeedsPlay(true), 2000);
+  return () => clearTimeout(timer);
  }, [playing]);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
