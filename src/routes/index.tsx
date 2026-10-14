@@ -14,11 +14,8 @@ import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 /* ─── HERO: punto unico di rientro ───────────────────────────────────────
    Cambia solo la riga contrassegnata con HERE.
-     HERO_VIDEOS.correct → 12s (attuale): la base al 90%, i condimenti che
-                           cadono, il forno di casa per l'ultimo 10%, il
-                           formaggio che fila. Con audio.
-     HERO_VIDEOS.promo   → 21s: il film promozionale, con audio
-     HERO_VIDEOS.loop    → 23s con audio: condimenti aggiunti a casa + cheese pull
+     Il film da 12s che hai fornito tu: la base al 90% coi condimenti che cadono,
+     il forno di casa per l'ultimo 10%, il formaggio che fila. Con audio.
      null                → niente video: torna l'immagine statica pizza-editorial.jpg
    Ogni video ha un mp4 di riserva per i navigatori che non aprono il webm.
    L'immagine resta in ogni caso come poster del video e come immagine di
