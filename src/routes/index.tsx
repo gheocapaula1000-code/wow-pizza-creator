@@ -51,19 +51,21 @@ function Home() {
   if (ref.current) ref.current.muted = next;
  };
  useEffect(() => {
-  if (!enabled || playing) { setNeedsPlay(false); return; }
+  if (playing) { setNeedsPlay(false); return; }
   const timer = setTimeout(() => setNeedsPlay(true), 1200);
   return () => clearTimeout(timer);
- }, [enabled, playing]);
+ }, [playing]);
  useEffect(() => {
   const player = ref.current;
-  if (!player || !enabled) return;
+  if (!player) return;
+  player.muted = true;
+  player.play().catch(() => setNeedsPlay(true));
   const observer = new IntersectionObserver(([entry]) => {
    if (entry?.isIntersecting && player.paused) player.play().catch(() => setNeedsPlay(true));
   }, { threshold: .4 });
   observer.observe(player);
   return () => observer.disconnect();
- }, [enabled]);
+ }, []);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
    {HERO_VIDEO ? <>
