@@ -8,13 +8,14 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
-import promoWebm from '@/assets/strano-ma-vero-promo-21s.webm.asset.json';
-import promoMp4 from '@/assets/strano-ma-vero-promo-21s.mp4.asset.json';
-import heroLoop from '@/assets/hero-loop-audio.webm.asset.json';
+// Hero video: the user's hero-correct-long (toppings on the 90% base, home oven, cheese pull).
+// MP4 H.264 first for iPhone/Safari, WebM fallback for browsers without H.264.
+// To revert to the static photo, remove the <video> and restore <img className="hero-photo" src={hero} alt="" />.
+import heroMp4 from '@/assets/hero-correct-long.mp4.asset.json';
+import heroWebm from '@/assets/hero-correct-long.webm.asset.json';
 import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
-const HERO_VIDEO = promoMp4; // MP4 for iOS compatibility
-const HERO_LABEL = 'Video promozionale base pizza 90% con condimenti e finale a casa';
+const HERO_LABEL = 'I condimenti cadono sulla base cotta al 90%, gli ultimi minuti nel forno di casa e il formaggio che fila';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
@@ -49,15 +50,16 @@ function Home() {
   }
  }, []);
  useEffect(() => {
+  const timer = playing ? undefined : setTimeout(() => setNeedsPlay(true), 2000);
   if (playing) setNeedsPlay(false);
-  else {
-   const timer = setTimeout(() => setNeedsPlay(true), 2000);
-   return () => clearTimeout(timer);
-  }
+  return () => { if (timer) clearTimeout(timer); };
  }, [playing]);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
-   <video ref={ref} className="hero-photo" src={HERO_VIDEO.url} poster={hero} autoPlay muted={muted} loop playsInline preload="auto" onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL} style={{zIndex: -3, objectFit: 'cover'}}/>
+   <video key="hero-correct-long" ref={ref} className="hero-photo" poster={hero} autoPlay muted={muted} loop playsInline preload="auto" onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL} style={{zIndex: -3, objectFit: 'cover'}}>
+    <source src={heroMp4.url} type="video/mp4"/>
+    <source src={heroWebm.url} type="video/webm"/>
+   </video>
    <Button className="hero-sound" variant="secondary" size="icon" onClick={toggleSound} aria-label={muted ? 'Attiva audio del video' : 'Disattiva audio del video'} title={muted ? 'Attiva audio' : 'Disattiva audio'}>{muted ? <VolumeX/> : <Volume2/>}</Button>
    {needsPlay && <Button className="hero-replay" variant="secondary" onClick={() => { ref.current?.play(); setNeedsPlay(false); }}>Riproduci il video</Button>}
     <div className="hero-copy"><div className="eyebrow">LA PIZZERIA. A CASA TUA.</div><h1 id="hero-title"><span>STRANO.</span><span>MA VERO!</span></h1><p>La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a casa: gli ultimi 3 minuti nel tuo forno, e il gran finale è tuo.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/pizze">Scegli la tua pizza <ArrowUpRight/></Link></Button></div></div>
