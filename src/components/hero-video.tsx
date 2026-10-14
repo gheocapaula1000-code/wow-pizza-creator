@@ -40,13 +40,19 @@ export function HeroVideo({ poster }: { poster: string }) {
       const bounds = video.getBoundingClientRect();
       if (bounds.bottom > 0 && bounds.top < window.innerHeight) play();
     };
+    const sync = () => setPlaying(!video.paused);
+    video.addEventListener('playing', sync);
+    video.addEventListener('pause', sync);
     video.addEventListener('canplay', play);
     window.addEventListener('pageshow', resume);
     document.addEventListener('visibilitychange', resume);
     motion.addEventListener('change', resume);
     play();
+    sync();
     return () => {
       observer.disconnect();
+      video.removeEventListener('playing', sync);
+      video.removeEventListener('pause', sync);
       video.removeEventListener('canplay', play);
       window.removeEventListener('pageshow', resume);
       document.removeEventListener('visibilitychange', resume);

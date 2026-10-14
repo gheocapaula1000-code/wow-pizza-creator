@@ -269,11 +269,13 @@ a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
  .bag-dialog { max-height:calc(100dvh - 48px); overflow-y:auto; }
 }
 @media(max-width:374px) { .hero h1 { font-size:46px; } .hero-copy p { font-size:14px; } .product-card h3 { overflow-wrap:anywhere; } }
-/* Mobile hero: fits the screen, video always covers, copy stays readable */
+/* Mobile hero: the whole 16:9 film is visible on top, copy sits below on ink so it stays readable */
 .cinematic-hero { width:100%; max-width:100vw; }
 @media(max-width:700px) {
- .cinematic-hero { min-height:clamp(540px, calc(100svh - 110px), 680px); height:auto; }
- .cinematic-hero .hero-photo { width:100%; height:100%; max-width:none; object-fit:cover; object-position:center 55%; }
- .hero-copy { padding:68px 6% 136px; max-width:100%; }
- .hero-copy p { text-shadow:var(--cinema-shadow); }
+ .cinematic-hero { min-height:0; height:auto; display:flex; flex-direction:column; background:var(--ink); }
+ .cinematic-hero .hero-photo { position:relative; inset:auto; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; object-position:center; flex-shrink:0; }
+ .cinematic-hero:after { background:linear-gradient(180deg,transparent 0,transparent calc(56.25vw - 64px),var(--ink) 56.25vw,var(--ink) 100%); }
+ .hero-copy { padding:4px 6% 140px; margin-top:-20px; max-width:100%; }
+ .hero h1 { margin:18px 0; }
+ .hero-video-controls { top:12px; }
 }
