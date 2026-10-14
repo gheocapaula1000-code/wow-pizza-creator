@@ -22,9 +22,9 @@ import { usePizzaVideo } from '@/hooks/use-pizza-video';
    riserva per chi ha "riduci movimento" o "risparmio dati" attivi.        */
 const HERO_VIDEOS = { loop: heroLoop, promo: promoWebm } as const;
 type HeroSource = { url: string } | null;
-const HERO_VIDEO: HeroSource = HERO_VIDEOS.promo; // HERE
+const HERO_VIDEO: HeroSource = HERO_VIDEOS.loop; // HERE - switched to the longer one with home finish
 // Testo per chi non vede il video: aggiornalo insieme alla riga HERE.
-const HERO_LABEL = 'Il film promozionale: la base cotta al 90%, i condimenti aggiunti a casa e la pizza finita a tavola';
+const HERO_LABEL = 'La base cotta al 90%, i condimenti che cadono, il finale nel forno di casa e il cheese pull';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
@@ -49,8 +49,6 @@ function Home() {
   setMuted(next);
   if (ref.current) ref.current.muted = next;
  };
- // L'hero gira in loop: se l'autoplay non parte, o se il video resta fermo
- // dopo uno scroll, compare il tasto "Riproduci il video".
  useEffect(() => {
   if (!enabled || playing) { setNeedsPlay(false); return; }
   const timer = setTimeout(() => setNeedsPlay(true), 1200);
