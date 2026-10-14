@@ -1,18 +1,10 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight, Minus, Plus, ShoppingBag, Trash2, Pizza, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { pizzas, euro } from '@/lib/pizzas';
-
-type Bag = Record<string, number>;
-type Store = { bag: Bag; add: (slug: string, quantity?: number) => void; showBag: () => void };
-const StoreContext = createContext<Store | null>(null);
-export function usePizzaStore() {
- const store = useContext(StoreContext);
- if (!store) throw new Error('PizzaStoreProvider is required');
- return store;
-}
+import { PizzaStoreContext, type Bag } from '@/components/pizza-store-context';
 export function PizzaStoreProvider({ children }: { children: ReactNode }) {
  const [bag, setBag] = useState<Bag>({});
  const [open, setOpen] = useState(false);
@@ -30,7 +22,7 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
  };
  const change = (slug: string, amount: number) => setBag(previous => ({ ...previous, [slug]: Math.max(0, Math.min(20, (previous[slug] ?? 0) + amount)) }));
  const total = pizzas.reduce((sum,p) => sum + p.price * (bag[p.slug] ?? 0), 0);
- return <StoreContext.Provider value={{ bag, add, showBag: () => setOpen(true) }}>
+ return <PizzaStoreContext.Provider value={{ bag, add, showBag: () => setOpen(true) }}>
   <div className="announcement">UNA BASE COTTA AL 90%. I CONDIMENTI DELLA TUA PIZZA. IL FINALE È TUO.</div>
   <header className="store-header">
    <Link to="/" className="wordmark" aria-label="Strano Ma Vero! Home">STRANO<span>MA VERO!</span></Link>
@@ -45,5 +37,5 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
   <Dialog open={open} onOpenChange={setOpen}><DialogContent className="bag-dialog"><DialogTitle>La tua serata pizza <span className="text-primary">({count})</span></DialogTitle><DialogDescription>Ogni articolo comprende una base e i condimenti preconfezionati della ricetta.</DialogDescription>
    {count === 0 ? <div className="bag-empty"><ShoppingBag/><h3>La serata è ancora tutta da scrivere.</h3><Button asChild onClick={() => setOpen(false)}><Link to="/pizze">Scegli le tue pizze <ArrowRight/></Link></Button></div> : <><div className="bag-lines">{pizzas.filter(p => (bag[p.slug] ?? 0)>0).map(p => <div className="bag-line" key={p.slug}><img src={p.image} alt={p.name} width={80} height={80}/><div><Link to="/pizza/$slug" params={{slug:p.slug}} onClick={() => setOpen(false)}>{p.name}</Link><small>Base + condimenti {p.name}</small><div className="quantity"><Button variant="ghost" size="icon" aria-label={`Riduci ${p.name}`} onClick={() => change(p.slug,-1)}><Minus/></Button><output aria-live="polite">{bag[p.slug]}</output><Button variant="ghost" size="icon" disabled={(bag[p.slug] ?? 0)>=20} aria-label={`Aumenta ${p.name}`} onClick={() => change(p.slug,1)}><Plus/></Button></div></div><div className="line-price"><strong>{euro(p.price*(bag[p.slug] ?? 0))}</strong><Button variant="ghost" size="icon" aria-label={`Rimuovi ${p.name}`} onClick={() => setBag(previous => ({...previous,[p.slug]:0}))}><Trash2/></Button></div></div>)}</div><div className="bag-total" aria-live="polite"><span>Totale dimostrativo</span><strong>{euro(total)}</strong></div><p className="demo-note">Questo carrello è solo una dimostrazione: non invia ordini e non accetta pagamenti.</p><Button onClick={() => setOpen(false)}>Continua a scegliere <ArrowRight/></Button></>}
   </DialogContent></Dialog>
- </StoreContext.Provider>;
+ </PizzaStoreContext.Provider>;
 }
