@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useEffect } from 'react';
-import { ArrowUpRight, ArrowRight, Flame, PackageOpen, Pizza } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowUpRight, Flame, PackageOpen, Pizza, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PizzaCatalog } from '@/components/pizza-catalog';
 import { PizzaTransformation } from '@/components/pizza-experience';
@@ -8,6 +8,8 @@ import { PizzaShowcase } from '@/components/pizza-showcase';
 import { PromoFilm } from '@/components/promo-film';
 import hero from '@/assets/pizza-editorial.jpg';
 import finale from '@/assets/finale-table.jpg';
+import heroFilm from '@/assets/hero-long.webm.asset.json';
+import { usePizzaVideo } from '@/hooks/use-pizza-video';
 
 export const Route = createFileRoute('/')({
  head: () => ({ meta: [
