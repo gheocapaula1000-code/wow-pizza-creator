@@ -44,6 +44,9 @@ function Home() {
   const player = ref.current;
   if (player) {
    player.muted = true;
+   // Slow, cinematic pace: the 12s clip lasts ~16s and loops naturally.
+   player.defaultPlaybackRate = 0.75;
+   player.playbackRate = 0.75;
    player.setAttribute('playsinline', '');
    player.setAttribute('webkit-playsinline', '');
    player.play().catch(() => setNeedsPlay(true));
@@ -56,7 +59,7 @@ function Home() {
  }, [playing]);
  return <main>
   <section className="hero cinematic-hero" aria-labelledby="hero-title">
-   <video key="hero-correct-long" ref={ref} className="hero-photo" poster={hero} autoPlay muted={muted} loop playsInline preload="auto" onPlay={onPlay} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL} style={{zIndex: -3, objectFit: 'cover'}}>
+   <video key="hero-correct-long" ref={ref} className="hero-photo" poster={hero} autoPlay muted={muted} loop playsInline preload="auto" onPlay={e => { e.currentTarget.playbackRate = 0.75; onPlay(); }} onPause={onPause} onEnded={onEnded} aria-label={HERO_LABEL}>
     <source src={heroMp4.url} type="video/mp4"/>
     <source src={heroWebm.url} type="video/webm"/>
    </video>
