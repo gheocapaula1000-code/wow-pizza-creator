@@ -5,7 +5,7 @@ export const Route = createFileRoute("/termini-e-condizioni")({
   head: () =>
     legalHead(
       "Termini e Condizioni",
-      "Termini di utilizzo del sito dimostrativo Basex Pizza: nessuna vendita, nessun ordine, nessun pagamento.",
+      "Termini di utilizzo del sito dimostrativo BasexPizza: nessuna vendita, nessun ordine, nessun pagamento.",
       "/termini-e-condizioni",
     ),
   component: () => (
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/termini-e-condizioni")({
       </p>
       <h2>Natura dimostrativa</h2>
       <p>
-        Basex Pizza è una dimostrazione grafica e interattiva di un negozio di basi pizza precotte e
+        BasexPizza è una dimostrazione grafica e interattiva di un negozio di basi pizza precotte e
         condimenti. Non è un negozio operativo: non si possono effettuare ordini né pagamenti, e
         nessun prodotto viene venduto o spedito attraverso questo sito.
       </p>

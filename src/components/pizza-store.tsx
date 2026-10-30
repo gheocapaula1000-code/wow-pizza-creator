@@ -44,8 +44,8 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
         UNA BASE COTTA AL 90%. I CONDIMENTI DELLA TUA PIZZA. IL FINALE È TUO.
       </div>
       <header className="store-header">
-        <Link to="/" className="wordmark" aria-label="Strano Ma Vero! Home">
-          STRANO<span>MA VERO!</span>
+        <Link to="/" className="wordmark" aria-label="BasexPizza Home">
+          BASEX<span>PIZZA</span>
         </Link>
         <nav aria-label="Navigazione principale">
           <Link to="/pizze">Le nostre pizze</Link>
@@ -80,29 +80,36 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
       </header>
       {children}
       <footer className="store-footer">
-        <Link to="/" className="wordmark">
-          STRANO<span>MA VERO!</span>
-        </Link>
-        <div>
-          La stessa base. Mille voglie diverse.
+        <div className="footer-brand">
+          <Link to="/" className="wordmark" aria-label="BasexPizza Home">
+            BASEX<span>PIZZA</span>
+          </Link>
+          <p>La stessa base. Mille voglie diverse.</p>
           <small>Sito dimostrativo · Prezzi e ricette d’esempio · Nessun ordine o pagamento</small>
         </div>
-        <Link to="/pizze">
-          Scegli la tua pizza <ArrowRight size={16} />
-        </Link>
         <div className="footer-legal">
+          <p className="footer-owner">
+            © {new Date().getFullYear()} {legalEntity.companyName}
+          </p>
+          <p>
+            {legalEntity.address} — {legalEntity.cap} {legalEntity.city} ({legalEntity.province})
+          </p>
+          <p>P.IVA {legalEntity.vatNumber}</p>
+          <p>
+            <a href={`mailto:${legalEntity.email}`}>{legalEntity.email}</a>
+          </p>
+          <p>
+            PEC <a href={`mailto:${legalEntity.pec}`}>{legalEntity.pec}</a>
+          </p>
+          <p>
+            Tel. <a href={`tel:${legalEntity.phoneTel}`}>{legalEntity.phone}</a>
+          </p>
           <nav aria-label="Pagine legali">
-            <Link to="/privacy-policy">Privacy Policy</Link>
-            <Link to="/cookie-policy">Cookie Policy</Link>
-            <Link to="/termini-e-condizioni">Termini e Condizioni</Link>
+            <Link to="/pizze">Le pizze</Link>
+            <Link to="/privacy-policy">Privacy</Link>
+            <Link to="/termini-e-condizioni">Termini</Link>
+            <Link to="/cookie-policy">Cookie</Link>
           </nav>
-          <small className="legal-line">
-            <strong>{legalEntity.companyName}</strong> · {legalEntity.address}, {legalEntity.cap}{" "}
-            {legalEntity.city} ({legalEntity.province}) · P.IVA {legalEntity.vatNumber} ·{" "}
-            <a href={`mailto:${legalEntity.email}`}>{legalEntity.email}</a> · PEC{" "}
-            <a href={`mailto:${legalEntity.pec}`}>{legalEntity.pec}</a> ·{" "}
-            <a href={`tel:${legalEntity.phoneTel}`}>{legalEntity.phone}</a>
-          </small>
         </div>
       </footer>
       <div className="sr-only" role="status">
@@ -133,7 +140,7 @@ export function PizzaStoreProvider({ children }: { children: ReactNode }) {
       )}
       <Dialog open={menu} onOpenChange={setMenu}>
         <DialogContent>
-          <DialogTitle>Strano Ma Vero!</DialogTitle>
+          <DialogTitle>BasexPizza</DialogTitle>
           <DialogDescription>La pizzeria, a casa tua.</DialogDescription>
           <nav className="mobile-nav">
             <Link to="/pizze" onClick={() => setMenu(false)}>

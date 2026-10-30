@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Check, Minus, Plus, PackageOpen, Flame } from "l
 import { pizzas, euro } from "@/lib/pizzas";
 import { usePizzaStore } from "@/components/pizza-store";
 import { Button } from "@/components/ui/button";
-import base from "@/assets/pizza-base.jpg";
+import base from "@/assets/pizza-base.webp";
 import { RelatedPizzas } from "@/components/related-pizzas";
 import { PizzaComparison } from "@/components/pizza-comparison";
 
@@ -18,8 +18,8 @@ export const Route = createFileRoute("/pizza/$slug")({
     meta: [
       {
         title: p
-          ? `${p.name} — Base pizza e condimenti | Strano Ma Vero!`
-          : "Pizza non disponibile | Strano Ma Vero!",
+          ? `${p.name} — Base pizza e condimenti | BasexPizza`
+          : "Pizza non disponibile | BasexPizza",
       },
       {
         name: "description",
@@ -29,13 +29,13 @@ export const Route = createFileRoute("/pizza/$slug")({
       },
       {
         property: "og:title",
-        content: p ? `${p.name} | Strano Ma Vero!` : "Pizza non disponibile | Strano Ma Vero!",
+        content: p ? `${p.name} | BasexPizza` : "Pizza non disponibile | BasexPizza",
       },
       {
         property: "og:description",
         content: p
           ? `Una base cotta al 90% e i condimenti della ${p.name}, da completare a casa. Catalogo dimostrativo.`
-          : "Scopri le pizze del catalogo dimostrativo Strano Ma Vero.",
+          : "Scopri le pizze del catalogo dimostrativo BasexPizza.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

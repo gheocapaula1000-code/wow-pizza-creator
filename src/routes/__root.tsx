@@ -75,27 +75,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Basex Pizza | Base pizza precotta e condimenti | Strano Ma Vero!" },
+      { title: "BasexPizza | Base per Pizza precotta e condimenti" },
       {
         name: "description",
         content:
-          "Basex Pizza: base pizza cotta al 90% nel forno a legna + condimenti preconfezionati per le tue ricette preferite. Finisci a casa in 3 minuti.",
+          "BasexPizza: base pizza cotta al 90% nel forno a legna + condimenti preconfezionati per le tue ricette preferite. Finisci a casa in 3 minuti.",
       },
       { name: "robots", content: "index, follow" },
       { name: "theme-color", content: "#c45c26" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-      { name: "apple-mobile-web-app-title", content: "Basex Pizza" },
-      { property: "og:title", content: "Basex Pizza — La pizzeria a casa tua" },
+      { name: "apple-mobile-web-app-title", content: "BasexPizza" },
+      { property: "og:title", content: "BasexPizza — La pizzeria a casa tua" },
       {
         property: "og:description",
         content: "Base precotta al 90% + condimenti pronti. Il finale lo fai tu.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://basexpizza.com" },
-      { property: "og:site_name", content: "Basex Pizza" },
+      { property: "og:site_name", content: "BasexPizza" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Basex Pizza — La pizzeria a casa tua" },
+      { name: "twitter:title", content: "BasexPizza — La pizzeria a casa tua" },
       {
         name: "twitter:description",
         content: "Base pizza precotta e condimenti per finire a casa.",
@@ -143,8 +143,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "@type": "WebSite",
               "@id": "https://basexpizza.com/#website",
               url: "https://basexpizza.com",
-              name: "Basex Pizza",
-              alternateName: "Strano Ma Vero!",
+              name: "BasexPizza",
               inLanguage: "it-IT",
               description:
                 "Dimostrazione: base pizza precotta al 90% e condimenti da finire a casa. Nessun ordine né pagamento.",

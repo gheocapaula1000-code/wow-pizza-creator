@@ -39,9 +39,9 @@ export function legalHead(title: string, description: string, path: string) {
   const url = `https://basexpizza.com${path}`;
   return {
     meta: [
-      { title: `${title} | Basex Pizza` },
+      { title: `${title} | BasexPizza` },
       { name: "description", content: description },
-      { property: "og:title", content: `${title} | Basex Pizza` },
+      { property: "og:title", content: `${title} | BasexPizza` },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
       { property: "og:url", content: url },

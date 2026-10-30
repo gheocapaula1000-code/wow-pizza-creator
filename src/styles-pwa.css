@@ -118,10 +118,6 @@
 }
 
 /* Legal pages + footer legal row + cookie banner */
-.footer-legal{grid-column:1/-1;flex-basis:100%;width:100%;display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:1rem;margin-top:.5rem;font-size:.8rem}
-.footer-legal nav{display:flex;flex-wrap:wrap;gap:.25rem 1rem}
-.footer-legal a{min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:3px}
-.footer-legal small{opacity:.75}
 .legal-page{max-width:760px;margin:0 auto;padding-inline:1.25rem}
 .legal-page h1{font-size:clamp(2.2rem,6vw,3.6rem);line-height:1;margin:.5rem 0 1rem}
 .legal-intro{color:var(--muted-foreground);margin-bottom:1.5rem}
@@ -140,7 +136,15 @@
 @media (min-width:900px){.cookie-banner{bottom:1.25rem}}
 @media (prefers-reduced-motion:reduce){.cookie-banner{animation:none}}
 
-/* Riga legale del footer: leggibile su telefono e sopra la barra in basso */
-.store-footer .footer-legal small.legal-line { font-size: 11px; line-height: 1.7; max-width: 100%; overflow-wrap: anywhere; }
-.store-footer .footer-legal small.legal-line a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Footer: stesso schema delle altre PWA Pi.Gi Service (una voce per riga, link da 44px) */
+.store-footer { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; padding-left: max(5%, env(safe-area-inset-left)); padding-right: max(5%, env(safe-area-inset-right)); font-size: 13px; line-height: 1.6; border-top: 1px solid var(--border); }
+@media (min-width: 900px) { .store-footer { grid-template-columns: 1fr 1fr; gap: 48px; } }
+.store-footer .footer-brand p { margin-top: 10px; }
+.store-footer .footer-brand small { font-size: 11px; line-height: 1.6; max-width: none; }
+.store-footer .footer-legal { display: block; border: 0; padding: 0; margin: 0; width: auto; font-size: 13px; }
+.store-footer .footer-legal p { margin: 4px 0 0; overflow-wrap: anywhere; }
+.store-footer .footer-legal .footer-owner { font-weight: 700; margin-top: 0; }
+.store-footer .footer-legal a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+.store-footer .footer-legal nav { display: flex; flex-wrap: wrap; gap: 0 18px; margin-top: 12px; }
 .legal-updated { margin-top: 24px; font-size: 12px; opacity: .7; }

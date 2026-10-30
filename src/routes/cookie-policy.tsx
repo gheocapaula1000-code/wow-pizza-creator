@@ -5,7 +5,7 @@ export const Route = createFileRoute("/cookie-policy")({
   head: () =>
     legalHead(
       "Cookie Policy",
-      "Quali dati tecnici usa il sito dimostrativo Basex Pizza e come gestire la scelta.",
+      "Quali dati tecnici usa il sito dimostrativo BasexPizza e come gestire la scelta.",
       "/cookie-policy",
     ),
   component: () => (

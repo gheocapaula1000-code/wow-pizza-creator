@@ -3,13 +3,13 @@ import { PizzaCatalog } from "@/components/pizza-catalog";
 export const Route = createFileRoute("/pizze")({
   head: () => ({
     meta: [
-      { title: "Le pizze — Margherita, Diavola e classici | Strano Ma Vero!" },
+      { title: "Le pizze — Margherita, Diavola e classici | BasexPizza" },
       {
         name: "description",
         content:
           "Scopri quattro pizze classiche con la stessa base cotta al 90% e condimenti preconfezionati dedicati: Margherita, Diavola, Capricciosa e Quattro stagioni.",
       },
-      { property: "og:title", content: "Le nostre pizze | Strano Ma Vero!" },
+      { property: "og:title", content: "Le nostre pizze | BasexPizza" },
       {
         property: "og:description",
         content:

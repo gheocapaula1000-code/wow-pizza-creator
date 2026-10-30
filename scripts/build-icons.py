@@ -138,8 +138,8 @@ def main():
                 sizes=[(16, 16), (32, 32), (48, 48)])
 
     manifest = {
-        "name": "Basex Pizza — Strano Ma Vero!",
-        "short_name": "Basex Pizza",
+        "name": "BasexPizza — Base per Pizza",
+        "short_name": "BasexPizza",
         "description": "Base pizza cotta al 90% nel forno a legna e condimenti preconfezionati da finire a casa.",
         "start_url": "/",
         "scope": "/",

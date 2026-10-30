@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 
-const KEY = "smv-cookie-consent";
+const KEY = "bxp-cookie-consent";
 const SIX_MONTHS = 1000 * 60 * 60 * 24 * 182;
 
 /** Reads the stored choice: 'accepted' | 'rejected' | null (expired or missing). */

@@ -5,7 +5,7 @@ export const Route = createFileRoute("/privacy-policy")({
   head: () =>
     legalHead(
       "Privacy Policy",
-      "Informativa sul trattamento dei dati personali del sito dimostrativo Basex Pizza ai sensi del GDPR (Reg. UE 2016/679).",
+      "Informativa sul trattamento dei dati personali del sito dimostrativo BasexPizza ai sensi del GDPR (Reg. UE 2016/679).",
       "/privacy-policy",
     ),
   component: () => (
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/privacy-policy")({
       </p>
       <h2>Natura del sito</h2>
       <p>
-        Basex Pizza è un sito dimostrativo: non ci sono ordini, pagamenti, account o moduli di
+        BasexPizza è un sito dimostrativo: non ci sono ordini, pagamenti, account o moduli di
         contatto. Il carrello è solo un esempio e resta nel tuo browser.
       </p>
       <h2>Dati trattati</h2>

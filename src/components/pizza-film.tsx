@@ -1,7 +1,7 @@
 import { Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import film from "@/assets/hero-correct.webm.asset.json";
-import poster from "@/assets/finale-table.jpg";
+import poster from "@/assets/finale-table.webp";
 import { usePizzaVideo } from "@/hooks/use-pizza-video";
 
 export function PizzaFilm() {

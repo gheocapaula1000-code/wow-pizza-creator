@@ -5,20 +5,19 @@ import { Button } from "@/components/ui/button";
 import { PizzaCatalog } from "@/components/pizza-catalog";
 import { PizzaTransformation } from "@/components/pizza-experience";
 import { PizzaShowcase } from "@/components/pizza-showcase";
-import { PromoFilm } from "@/components/promo-film";
-import hero from "@/assets/pizza-editorial.jpg";
-import finale from "@/assets/finale-table.jpg";
+import hero from "@/assets/pizza-editorial.webp";
+import finale from "@/assets/finale-table.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Strano Ma Vero! — Base pizza e condimenti, il finale è tuo" },
+      { title: "BasexPizza — Base per Pizza cotta al 90% e condimenti" },
       {
         name: "description",
         content:
-          "Margherita, Diavola, Capricciosa e Quattro stagioni: una base pizza cotta al 90% con condimenti preconfezionati per ogni ricetta, da finire a casa. Scopri il concept Strano Ma Vero!.",
+          "Margherita, Diavola, Capricciosa e Quattro stagioni: una base pizza cotta al 90% con condimenti preconfezionati per ogni ricetta, da finire a casa. Scopri il concept BasexPizza.",
       },
-      { property: "og:title", content: "Strano Ma Vero! — La pizzeria, a casa tua" },
+      { property: "og:title", content: "BasexPizza — Base per Pizza, la pizzeria a casa tua" },
       {
         property: "og:description",
         content:
@@ -58,8 +57,8 @@ function Home() {
         <div className="hero-copy">
           <div className="eyebrow">LA PIZZERIA. A CASA TUA.</div>
           <h1 id="hero-title">
-            <span>STRANO.</span>
-            <span>MA VERO!</span>
+            <span>Base</span>
+            <span>per Pizza</span>
           </h1>
           <p>
             La base, cotta al 90%. I condimenti della tua pizza preferita, già pronti. Aggiungili a
@@ -125,13 +124,12 @@ function Home() {
         <div>
           {Array.from({ length: 4 }, (_, i) => (
             <span key={i}>
-              STRANO MA VERO! <Pizza /> LA TUA PIZZA. IL TUO FINALE. <Flame />
+              BASEXPIZZA <Pizza /> LA TUA PIZZA. IL TUO FINALE. <Flame />
             </span>
           ))}
         </div>
       </div>
       <PizzaTransformation />
-      <PromoFilm />
       <section className="method-section section-space" data-reveal>
         <div className="section-heading">
           <div>

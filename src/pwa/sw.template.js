@@ -1,4 +1,4 @@
-/* Basex Pizza service worker.
+/* BasexPizza service worker.
  * Il segnaposto di versione qui sotto è sostituito a ogni build (vite.config.ts): ogni rilascio produce un sw.js diverso.
  * Il nuovo worker NON si attiva da solo: resta in attesa finché l'utente tocca «Aggiorna» nel banner
  * (messaggio SKIP_WAITING), così nessuno perde ciò che sta facendo. */

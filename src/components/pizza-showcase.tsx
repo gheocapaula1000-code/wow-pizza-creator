@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { pizzas, euro } from "@/lib/pizzas";
 import ovenFilm from "@/assets/oven-correct.webm.asset.json";
-import ovenPoster from "@/assets/plain-base-oven.jpg";
+import ovenPoster from "@/assets/plain-base-oven.webp";
 import { usePizzaVideo } from "@/hooks/use-pizza-video";
 
 export function OvenFilm() {

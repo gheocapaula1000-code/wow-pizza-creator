@@ -3,10 +3,8 @@ import { Play, ArrowUpRight, MoveHorizontal, Pause, Volume2, VolumeX } from "luc
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import base from "@/assets/pizza-base.jpg";
-import finished from "@/assets/recipe-diavola.jpg";
-import preparation from "@/assets/strano-ma-vero-promo.webm.asset.json";
-import promoPoster from "@/assets/strano-ma-vero-promo-poster.jpg.asset.json";
+import base from "@/assets/pizza-base.webp";
+import finished from "@/assets/recipe-diavola.webp";
 import { usePizzaVideo } from "@/hooks/use-pizza-video";
 
 export function PizzaTransformation() {
@@ -101,20 +99,20 @@ export function PreparationFilm() {
             <em>Guardala succedere.</em>
           </h2>
         </div>
-        <span>STRANO MA VERO! / IL FILM · 00:10</span>
+        <span>BASEXPIZZA / IL FILM · 00:10</span>
       </div>
       <div className="preparation-stage promo-stage">
         <video
           ref={ref}
-          src={enabled ? preparation.url : undefined}
-          poster={promoPoster.url}
+          src={enabled ? "/media/basexpizza-film.webm" : undefined}
+          poster="/media/basexpizza-film-poster.webp"
           preload="none"
           playsInline
           muted={muted}
           onPlay={onPlay}
           onPause={onPause}
           onEnded={onEnded}
-          aria-label="Strano Ma Vero: pizzaiolo per un giorno, con la base cotta al 90%"
+          aria-label="BasexPizza: pizzaiolo per un giorno, con la base cotta al 90%"
         />
         {!playing && (
           <Button className="film-play" variant="secondary" onClick={playWithSound}>
@@ -147,7 +145,7 @@ export function PreparationFilm() {
       </div>
       <div className="film-caption">
         <span>Pizzaiolo per un giorno. Il gran finale è tuo.</span>
-        <small>Strano Ma Vero · Film promozionale</small>
+        <small>BasexPizza · Film dimostrativo</small>
       </div>
     </section>
   );
