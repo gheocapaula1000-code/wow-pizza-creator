@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 export function usePizzaVideo({ maxAutoPlays = 2 }: { maxAutoPlays?: number } = {}) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -12,12 +12,13 @@ export function usePizzaVideo({ maxAutoPlays = 2 }: { maxAutoPlays?: number } = 
   const [showReplay, setShowReplay] = useState(false);
 
   useEffect(() => {
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection;
     const update = () => setEnabled(!motion.matches && !connection?.saveData);
     update();
-    motion.addEventListener('change', update);
-    return () => motion.removeEventListener('change', update);
+    motion.addEventListener("change", update);
+    return () => motion.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export function usePizzaVideo({ maxAutoPlays = 2 }: { maxAutoPlays?: number } = 
           player.play().catch(() => setPlaying(false));
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
     observer.observe(player);
     return () => observer.disconnect();
@@ -70,7 +71,13 @@ export function usePizzaVideo({ maxAutoPlays = 2 }: { maxAutoPlays?: number } = 
   };
 
   useEffect(() => {
-    if (enabled && attempted.current && !userPaused.current && !ended && playCount.current < maxAutoPlays) {
+    if (
+      enabled &&
+      attempted.current &&
+      !userPaused.current &&
+      !ended &&
+      playCount.current < maxAutoPlays
+    ) {
       ref.current?.play().catch(() => setPlaying(false));
     }
   }, [enabled, ended, maxAutoPlays]);

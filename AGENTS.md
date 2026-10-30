@@ -22,3 +22,9 @@
 - Generate every browser and manifest PNG icon with `python3 scripts/build-icons.py` (never hand-edit the PNGs) and keep every referenced icon file present; maskable icons need safe-area padding to avoid cropping the mark.
 - Keep a version marker on every icon and manifest file reference (favicon, manifest icons); phones cache icons per URL forever, so bump the marker in the file name (never a ?query string) whenever the artwork changes.
 - The apple-touch-icon is embedded as a data URI (src/lib/touch-icon.ts, regenerated from the PNG); iOS showed a letter tile when its separate icon download failed, and an inline icon needs no download.
+
+## PWA, footer e note legali (Pi.Gi Service)
+- Service worker generato a ogni build da `src/pwa/sw.template.js` (plugin in `vite.config.ts`); banner «Nuova Versione disponibile» + «Aggiorna» e pull-to-refresh con pulizia della sola cache `basexpizza-runtime-vN` in `src/lib/` montati da `src/components/pwa-runtime.tsx`.
+- Dati societari in un solo punto: `src/lib/legal-entity.ts` (Pi.Gi Service di Gheoca Paula, P.IVA 05770260288).
+- Il sito è una **dimostrazione** senza ordini, pagamenti o account: Google OAuth e email di verifica non servono. I testi legali sono una bozza da far validare a un legale prima di una vendita reale.
+- Marchio «Strano Ma Vero» e contenuti: confermare i diritti o rimarchiare prima della cessione.

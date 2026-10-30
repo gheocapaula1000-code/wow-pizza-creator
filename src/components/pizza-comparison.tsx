@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { MoveHorizontal } from 'lucide-react';
-import { Slider } from '@/components/ui/slider';
+import { useState } from "react";
+import { MoveHorizontal } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
 
 interface Props {
   base: string;
@@ -9,7 +9,12 @@ interface Props {
   finishedAlt?: string;
 }
 
-export function PizzaComparison({ base, finished, baseAlt = 'La base pizza precotta al 90%', finishedAlt = 'Il risultato finale' }: Props) {
+export function PizzaComparison({
+  base,
+  finished,
+  baseAlt = "La base pizza precotta al 90%",
+  finishedAlt = "Il risultato finale",
+}: Props) {
   const [amount, setAmount] = useState(50);
   return (
     <div className="comparison">

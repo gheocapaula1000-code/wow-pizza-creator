@@ -113,7 +113,7 @@
     padding-bottom: 70px;
   }
   .store-footer {
-    padding-bottom: 80px;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
   }
 }
 
@@ -139,3 +139,8 @@
 @keyframes cookie-up{from{transform:translate(-50%,120%);opacity:0}to{transform:translate(-50%,0);opacity:1}}
 @media (min-width:900px){.cookie-banner{bottom:1.25rem}}
 @media (prefers-reduced-motion:reduce){.cookie-banner{animation:none}}
+
+/* Riga legale del footer: leggibile su telefono e sopra la barra in basso */
+.store-footer .footer-legal small.legal-line { font-size: 11px; line-height: 1.7; max-width: 100%; overflow-wrap: anywhere; }
+.store-footer .footer-legal small.legal-line a { text-decoration: underline; text-underline-offset: 3px; }
+.legal-updated { margin-top: 24px; font-size: 12px; opacity: .7; }
